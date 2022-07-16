@@ -48,7 +48,7 @@ public class Gameplay : Node2D {
                 Symbols.ImgBB(kv.Key), kv.Value
             ));
         } else {
-            return $"{DigitBB(kv.Value)}{Symbols.ImgBB(kv.Key)}";
+            return $"{Symbols.DigitBB(kv.Value)}{Symbols.ImgBB(kv.Key)}";
         }
     }
     public void UpdateFromGameState() {
