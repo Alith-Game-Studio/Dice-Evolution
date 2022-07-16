@@ -26,6 +26,7 @@ public class Gameplay : Node2D {
         DiceButtonLabels = new List<List<RichTextLabel>>();
         DiceUpgrades = new List<VBoxContainer>();
         RollButton = GetNode<Button>("Button");
+        RollButton.Text = "Roll " + Symbols.ImgBB("root");
         int diceId = 0;
         foreach (HBoxContainer container in GetNode<GridContainer>("HBoxContainer").GetChildren()) {
             DiceLayouts.Add(container);

@@ -12,6 +12,6 @@ public class DiceFacetCall : DiceFacet {
         Type = type;
     }
     public override string ToDescription() {
-        return base.ToDescription() + Symbols.ImgBB(Dice);
+        return base.ToDescription() + "roll" + Symbols.ImgBB(Dice);
     }
 }
