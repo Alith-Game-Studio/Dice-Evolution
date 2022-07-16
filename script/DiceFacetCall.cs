@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 public class DiceFacetCall : DiceFacet {
-    public Dice Dice;
-    public DiceFacetCall(string[] ingradients, Dice dice, string type) {
+    public string Dice;
+    public DiceFacetCall(string[] ingradients, string dice, string[] prices, string type) {
         Ingradients = ProcessCompressedStringList(ingradients);
         Dice = dice;
+        Prices = prices;
         Type = type;
     }
     public override string ToDescription() {
@@ -16,7 +17,7 @@ public class DiceFacetCall : DiceFacet {
             sb.Append(string.Join("", Ingradients.Select(s => Symbols.ImgBB(s))));
             sb.Append(Symbols.ImgBB("right_arrow"));
         }
-        sb.Append(Symbols.ImgBB(Dice.Name));
+        sb.Append(Symbols.ImgBB(Dice));
         return sb.ToString();
     }
 }

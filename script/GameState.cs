@@ -20,7 +20,7 @@ public class GameState : Node
             new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
-            new DiceFacetCall(new string[] { }, diceFight, "play"),
+            new DiceFacetCall(new string[] { }, "fight", null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"hp"}, null, "play"),
         });
         Dice diceWork = new Dice("work", new DiceFacet[] {
@@ -29,16 +29,16 @@ public class GameState : Node
             new DiceFacetConvert(new string[] {"mana"}, new string[]{"earth"}, null, "work"),
             new DiceFacetConvert(new string[] {"mana"}, new string[]{"earth"}, null, "work"),
             new DiceFacetConvert(new string[] {"mana"}, new string[]{"air"}, null, "work"),
-            new DiceFacetCall(new string[] {"mana"}, diceFight, "work"),
+            new DiceFacetCall(new string[] {"mana"}, "fight", null, "work"),
         });
         Dices = new Dice[] {
             new Dice("root", new DiceFacet[] {
-                new DiceFacetCall(new string[] { }, diceWork, "root"),
-                new DiceFacetCall(new string[] { }, diceWork, "root"),
-                new DiceFacetCall(new string[] { }, diceWork, "root"),
-                new DiceFacetCall(new string[] { }, dicePlay, "root"),
-                new DiceFacetCall(new string[] { }, dicePlay, "root"),
-                new DiceFacetCall(new string[] { }, dicePlay, "root"),
+                new DiceFacetCall(new string[] { }, "work", null, "root"),
+                new DiceFacetCall(new string[] { }, "work", null, "root"),
+                new DiceFacetCall(new string[] { }, "work", null, "root"),
+                new DiceFacetCall(new string[] { }, "play", null, "root"),
+                new DiceFacetCall(new string[] { }, "play", null, "root"),
+                new DiceFacetCall(new string[] { }, "play", null, "root"),
             }),
             diceWork,
             dicePlay,
