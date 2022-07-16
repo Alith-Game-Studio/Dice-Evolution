@@ -8,6 +8,7 @@
 script = ExtResource( 3 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
 margin_left = 387.0
 margin_top = 162.0
 margin_right = 1049.0
@@ -21,12 +22,13 @@ text = "LOGS
 
 You generated 2  with 1  !"
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+[node name="InventoryText" type="RichTextLabel" parent="."]
 margin_left = 19.0
 margin_top = 153.0
 margin_right = 320.0
 margin_bottom = 475.0
 theme = ExtResource( 1 )
+bbcode_enabled = true
 bbcode_text = "Inventory
 
 10 x
@@ -40,32 +42,28 @@ text = "Inventory
 10 Z
 10 W"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_left = 15.0
-margin_top = 428.0
-margin_right = 1351.0
-margin_bottom = 698.0
-custom_constants/separation = 40
-alignment = 1
+[node name="HBoxContainer" type="GridContainer" parent="."]
+margin_left = 426.0
+margin_top = 117.0
+margin_right = 1278.0
+margin_bottom = 661.0
+columns = 2
 
 [node name="DiceLayout" parent="HBoxContainer" instance=ExtResource( 2 )]
-margin_right = 304.0
-margin_bottom = 270.0
 
 [node name="DiceLayout2" parent="HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 344.0
-margin_right = 648.0
-margin_bottom = 270.0
+margin_left = 457.0
+margin_right = 910.0
 
 [node name="DiceLayout3" parent="HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 688.0
-margin_right = 992.0
-margin_bottom = 270.0
+margin_top = 274.0
+margin_bottom = 544.0
 
 [node name="DiceLayout4" parent="HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 1032.0
-margin_right = 1336.0
-margin_bottom = 270.0
+margin_left = 457.0
+margin_top = 274.0
+margin_right = 910.0
+margin_bottom = 544.0
 
 [node name="DiceLayout5" parent="HBoxContainer" instance=ExtResource( 2 )]
 visible = false

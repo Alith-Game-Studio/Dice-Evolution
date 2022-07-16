@@ -7,6 +7,10 @@ public class GameState : Node
     public static Dictionary<string, int> Inventory { get; private set; }
     public static Dice[] Dices { get; private set; }
     static GameState() {
+        Inventory = new Dictionary<string, int>() {
+            {"mana", 10},
+            {"hp", 10 }
+        };
         Dice diceFight = new Dice("fight", new DiceFacet[] {
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
