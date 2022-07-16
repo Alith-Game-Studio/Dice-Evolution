@@ -40,4 +40,68 @@ public class Gameplay : Node2D {
             }
         }
     }
+
+    private bool CanRollNow = true;
+    private bool IsBlinking = false;
+    private int BlinkStage;
+    private int BlinkingDiceI;
+    private int BlinkingFaceI;
+    private float BlinkAge;
+    private int BlinkOffset;
+    private float BlinkDuration;
+    const float BLINK_INIT_VELOCITY = 12;
+    const float BLINK_DURATION_MEAN = 3;
+    const float BLINK_SELF_INTERVAL = .3f;
+    const float BLINK_SELF_DURATION = 1;
+    Color BLINK_MODULATE = new Color(255, 120, 0);
+    public override void _Process(float delta)
+    {
+        base._Process(delta);
+        if (IsBlinking) {
+            BlinkAge += delta;
+            if (BlinkStage == 0) {
+                BlinkingFaceI = (((int) Math.Round(
+                    - 0.5 * BLINK_INIT_VELOCITY / BlinkDuration * Math.Pow(
+                        BlinkAge - BlinkDuration, 2
+                    )
+                ) + BlinkOffset) % 6 + 6) % 6;
+                for (int i = 0; i < 6; i ++) {
+                    DiceButtons[BlinkingDiceI][i].Modulate = Colors.White;
+                }
+                DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = BLINK_MODULATE;
+                if (BlinkAge >= BlinkDuration) {
+                    BlinkStage = 1;
+                    BlinkAge = 0;
+                }
+            } else if (BlinkStage == 1) {
+                if (BlinkAge < BLINK_SELF_DURATION) {
+                    if (BlinkAge % BLINK_SELF_INTERVAL < BLINK_SELF_INTERVAL * .5) {
+                        DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = BLINK_MODULATE;
+                    } else {
+                        DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = Colors.White;
+                    }
+                } else {                    
+                    IsBlinking = false;
+                    onBlinkFinish(BlinkingDiceI, BlinkingFaceI);
+                }
+            }
+        }
+    }
+
+    public void OnRollPressed() {
+        if (CanRollNow) {
+            CanRollNow = false;
+            IsBlinking = true;
+            BlinkStage = 0;
+            BlinkingDiceI = 0;
+            BlinkAge = 0;
+            BlinkOffset = new Random().Next(0, 6);
+            BlinkDuration = BLINK_DURATION_MEAN + (float) (
+                (new Random().NextDouble() - .5) * .4
+            );
+        }
+    }
+
+    public void onBlinkFinish(int DiceI, int FaceI) {
+    }
 }
