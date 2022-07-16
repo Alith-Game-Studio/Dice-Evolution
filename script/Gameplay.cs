@@ -150,12 +150,12 @@ public class Gameplay : Node2D {
     }
 
     public void OnRollPressed() {
-        if (BlinkingDiceI >= 0) {
-            DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = Colors.White;
-            BlinkingDiceI = -1;
-            BlinkingFaceI = -1;
-        }
         if (CanOperateNow) {
+            if (BlinkingDiceI >= 0) {
+                DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = Colors.White;
+                BlinkingDiceI = -1;
+                BlinkingFaceI = -1;
+            }
             CanOperateNow = false;
             IsBlinking = true;
             BlinkStage = 0;
