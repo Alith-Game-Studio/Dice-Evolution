@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 public abstract class DiceFacet {
     public string[] Ingradients;
-    public int Type { get; set; }
+    public string[] Prices;
+    public string Type { get; set; }
 
     public abstract string ToDescription();
 }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 public class DiceFacetConvert : DiceFacet {
     public string[] Products;
-    public string[] Prices;
 
-    public DiceFacetConvert(string[] ingradients, string[] products, string[] prices) {
+    public DiceFacetConvert(string[] ingradients, string[] products, string[] prices, string type) {
         Ingradients = ingradients;
         Products = products;
         Prices = prices;
+        Type = type;
     }
     public override string ToDescription() {
         StringBuilder sb = new StringBuilder();

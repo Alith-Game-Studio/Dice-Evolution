@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 public class DiceFacetCall : DiceFacet {
     public Dice Dice;
-    public DiceFacetCall(string[] ingradients, Dice dice) {
+    public DiceFacetCall(string[] ingradients, Dice dice, string type) {
         Ingradients = ingradients;
         Dice = dice;
+        Type = type;
     }
     public override string ToDescription() {
         StringBuilder sb = new StringBuilder();
