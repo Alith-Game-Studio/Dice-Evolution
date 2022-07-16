@@ -187,9 +187,9 @@ public class Gameplay : Node2D {
 
     public void OnBlinkFinish(int diceI, int faceI) {
         DiceFacet facet = GameState.Dices[diceI].Facets[faceI];
-        bool affordable = facet.Ingradients.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
+        bool affordable = facet.Ingredients.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
         if (affordable) {
-            foreach (KeyValuePair<string, int> req in facet.Ingradients) {
+            foreach (KeyValuePair<string, int> req in facet.Ingredients) {
                 GameState.Inventory[req.Key] -= req.Value;
             }
             if (facet is DiceFacetCall facetCall) {

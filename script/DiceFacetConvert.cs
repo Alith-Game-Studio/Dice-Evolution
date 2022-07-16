@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 public class DiceFacetConvert : DiceFacet {
     public Dictionary<string, int> Products;
 
-    public DiceFacetConvert(string[] ingradients, string[] products, string[] prices, string type) {
-        Ingradients = ProcessCompressedStringList(ingradients);
+    public DiceFacetConvert(string[] ingredients, string[] products, string[] prices, string type) {
+        Ingredients = ProcessCompressedStringList(ingredients);
         Products = ProcessCompressedStringList(products);
         Prices = ProcessCompressedStringList(prices);
         Type = type;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 public abstract class DiceFacet {
-    public Dictionary<string, int> Ingradients;
+    public Dictionary<string, int> Ingredients;
     public Dictionary<string, int> Prices;
     public string Type { get; set; }
 
@@ -58,8 +58,8 @@ public abstract class DiceFacet {
     }
     public virtual string ToDescription() {
         StringBuilder sb = new StringBuilder();
-        if (Ingradients.Count > 0) {
-            sb.Append(DictToDescription(Ingradients, true));
+        if (Ingredients.Count > 0) {
+            sb.Append(DictToDescription(Ingredients, true));
             sb.Append(Symbols.ImgBB("right_arrow"));
         }
         return sb.ToString();
