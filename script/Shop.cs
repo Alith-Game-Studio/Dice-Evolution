@@ -9,6 +9,18 @@ public class Shop {
     static Shop() {
         Items = new DiceFacet[] {
             new DiceFacetConvert(
+                new string[] {"mana", "mana"}, 
+                new string[] {"fire", "fire"}, 
+                new string[]{"water"}, 
+                "work"
+            ),
+            new DiceFacetConvert(
+                new string[] {"mana", "mana"}, 
+                new string[] {"earth", "earth"}, 
+                new string[]{"water", "water"}, 
+                "work"
+            ),
+            new DiceFacetConvert(
                 new string[] {"fire", "fire"}, 
                 new string[] {"copper"}, 
                 new string[]{"water", "water", "fire"}, 
