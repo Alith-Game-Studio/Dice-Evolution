@@ -105,8 +105,8 @@ public class Gameplay : Node2D {
     private bool CanOperateNow = true;
     private bool IsBlinking = false;
     private int BlinkStage;
-    private int BlinkingDiceI;
-    private int BlinkingFaceI;
+    private int BlinkingDiceI = -1;
+    private int BlinkingFaceI = -1;
     private float BlinkAge;
     private int BlinkOffset;
     private float BlinkDuration;
@@ -143,18 +143,23 @@ public class Gameplay : Node2D {
                     }
                 } else {                    
                     IsBlinking = false;
-                    onBlinkFinish(BlinkingDiceI, BlinkingFaceI);
+                    OnBlinkFinish(BlinkingDiceI, BlinkingFaceI);
                 }
             }
         }
     }
 
     public void OnRollPressed() {
+        if (BlinkingDiceI >= 0) {
+            DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = Colors.White;
+            BlinkingDiceI = -1;
+            BlinkingFaceI = -1;
+        }
         if (CanOperateNow) {
             CanOperateNow = false;
             IsBlinking = true;
             BlinkStage = 0;
-            BlinkingDiceI = 0;
+            BlinkingDiceI = GameState.DiceIdToRoll;
             BlinkAge = 0;
             BlinkOffset = new Random().Next(0, 6);
             BlinkDuration = BLINK_DURATION_MEAN + (float) (
@@ -166,6 +171,39 @@ public class Gameplay : Node2D {
         }
     }
 
-    public void onBlinkFinish(int DiceI, int FaceI) {
+    public void OnBlinkFinish(int diceI, int faceI) {
+        DiceFacet facet = GameState.Dices[diceI].Facets[faceI];
+        bool affordable = facet.Ingradients.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
+        if (affordable) {
+            foreach (KeyValuePair<string, int> req in facet.Ingradients) {
+                GameState.Inventory[req.Key] -= req.Value;
+            }
+            if (facet is DiceFacetCall facetCall) {
+                for (int i = 0; i < GameState.Dices.Length; ++i) {
+                    if (GameState.Dices[i].Name == facetCall.Dice) {
+                        GameState.DiceIdToRoll = i;
+                        break;
+                    }
+                }
+            } else if (facet is DiceFacetConvert diceFacetConvert) {
+                foreach (KeyValuePair<string, int> prod in diceFacetConvert.Products) {
+                    if (!GameState.Inventory.ContainsKey(prod.Key))
+                        GameState.Inventory[prod.Key] = prod.Value;
+                    else
+                        GameState.Inventory[prod.Key] += prod.Value;
+                }
+                GameState.DiceIdToRoll = 0;
+            }
+        } else {
+            if (GameState.Dices[diceI].Name == "fight") {
+                GameState.Inventory["hp"] -= 1;
+            }
+            GameState.DiceIdToRoll = 0;
+        }
+        currentSelectedDiceId = -1;
+        currentSelectedFaetId = -1;
+        UpdateFromGameState();
+        UpdateUpgradeVisibility();
+        CanOperateNow = true;
     }
 }

@@ -6,6 +6,7 @@ public class GameState : Node
 {
     public static Dictionary<string, int> Inventory { get; private set; }
     public static Dice[] Dices { get; private set; }
+    public static int DiceIdToRoll { get; set; }
     static GameState() {
         Inventory = new Dictionary<string, int>() {
             {"mana", 10},
