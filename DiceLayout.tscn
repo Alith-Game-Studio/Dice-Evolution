@@ -78,52 +78,53 @@ margin_top = 34.0
 margin_right = 290.0
 margin_bottom = 270.0
 size_flags_vertical = 3
+theme = ExtResource( 2 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer2/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 283.0
-margin_bottom = 229.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 289.0
+margin_bottom = 235.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_vertical = 3
 theme = ExtResource( 2 )
 
 [node name="ItemList" type="VBoxContainer" parent="VBoxContainer2/PanelContainer/ScrollContainer"]
-margin_right = 264.0
-margin_bottom = 276.0
-rect_min_size = Vector2( 100, 0 )
+margin_right = 276.0
+margin_bottom = 312.0
 size_flags_horizontal = 3
-
-[node name="DiceLayoutWithPrice" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
-margin_right = 264.0
-margin_bottom = 36.0
-
-[node name="DiceLayoutWithPrice2" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
-margin_top = 40.0
-margin_right = 264.0
-margin_bottom = 76.0
-
-[node name="DiceLayoutWithPrice3" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
-margin_top = 80.0
-margin_right = 264.0
-margin_bottom = 116.0
-
-[node name="DiceLayoutWithPrice4" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
-margin_top = 120.0
-margin_right = 264.0
-margin_bottom = 156.0
+custom_constants/separation = 10
 
 [node name="DiceLayoutWithPrice5" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
-margin_top = 160.0
-margin_right = 264.0
-margin_bottom = 196.0
+margin_right = 276.0
+margin_bottom = 36.0
 
 [node name="DiceLayoutWithPrice6" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
-margin_top = 200.0
-margin_right = 264.0
-margin_bottom = 236.0
+margin_top = 46.0
+margin_right = 276.0
+margin_bottom = 82.0
 
 [node name="DiceLayoutWithPrice7" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
-margin_top = 240.0
-margin_right = 264.0
-margin_bottom = 276.0
+margin_top = 92.0
+margin_right = 276.0
+margin_bottom = 128.0
+
+[node name="DiceLayoutWithPrice" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
+margin_top = 138.0
+margin_right = 276.0
+margin_bottom = 174.0
+
+[node name="DiceLayoutWithPrice2" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
+margin_top = 184.0
+margin_right = 276.0
+margin_bottom = 220.0
+
+[node name="DiceLayoutWithPrice3" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
+margin_top = 230.0
+margin_right = 276.0
+margin_bottom = 266.0
+
+[node name="DiceLayoutWithPrice4" parent="VBoxContainer2/PanelContainer/ScrollContainer/ItemList" instance=ExtResource( 3 )]
+margin_top = 276.0
+margin_right = 276.0
+margin_bottom = 312.0
