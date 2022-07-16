@@ -1,3 +1,80 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://theme/theme.tres" type="Theme" id=1]
+[ext_resource path="res://DiceLayout.tscn" type="PackedScene" id=2]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 387.0
+margin_top = 162.0
+margin_right = 1049.0
+margin_bottom = 406.0
+theme = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "LOGS
+
+You generated 2 [img=15%]res://texture/Triangle1.png[/img] with 1 [img=15%]res://texture/Electric.png[/img] !"
+text = "LOGS
+
+You generated 2  with 1  !"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+margin_left = 19.0
+margin_top = 153.0
+margin_right = 320.0
+margin_bottom = 475.0
+theme = ExtResource( 1 )
+bbcode_text = "Inventory
+
+10 x
+10 y
+10 Z
+10 W"
+text = "Inventory
+
+10 x
+10 y
+10 Z
+10 W"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 15.0
+margin_top = 428.0
+margin_right = 1351.0
+margin_bottom = 698.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="DiceLayout" parent="HBoxContainer" instance=ExtResource( 2 )]
+margin_right = 304.0
+margin_bottom = 270.0
+
+[node name="DiceLayout2" parent="HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 344.0
+margin_right = 648.0
+margin_bottom = 270.0
+
+[node name="DiceLayout3" parent="HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 688.0
+margin_right = 992.0
+margin_bottom = 270.0
+
+[node name="DiceLayout4" parent="HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 1032.0
+margin_right = 1336.0
+margin_bottom = 270.0
+
+[node name="DiceLayout5" parent="HBoxContainer" instance=ExtResource( 2 )]
+visible = false
+margin_left = 720.0
+margin_right = 820.0
+margin_bottom = 194.0
+
+[node name="Button" type="Button" parent="."]
+margin_left = 474.0
+margin_top = 725.0
+margin_right = 882.0
+margin_bottom = 778.0
+theme = ExtResource( 1 )
+text = "Roll"
