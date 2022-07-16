@@ -11,6 +11,8 @@ public class Gameplay : Node2D {
     public List<VBoxContainer> DiceUpgrades { get; set; }
     public RichTextLabel InventoryText { get; set; }
     public PackedScene DiceLayoutWithPricePrefab { get; set; }
+
+    int currentSelectedDiceId = -1, currentSelectedFaetId = -1;
     public override void _Ready() {
         DiceLayoutWithPricePrefab = GD.Load<PackedScene>("res://DiceLayoutWithPrice.tscn");
         InventoryText = GetNode<RichTextLabel>("InventoryText");
@@ -19,6 +21,7 @@ public class Gameplay : Node2D {
         DiceButtons = new List<List<Button>>();
         DiceButtonLabels = new List<List<RichTextLabel>>();
         DiceUpgrades = new List<VBoxContainer>();
+        int diceId = 0;
         foreach (HBoxContainer container in GetNode<GridContainer>("HBoxContainer").GetChildren()) {
             DiceLayouts.Add(container);
             List<Button> buttons = new List<Button>();
@@ -27,12 +30,17 @@ public class Gameplay : Node2D {
             DiceButtons.Add(buttons);
             DiceUpgrades.Add(container.GetNode<VBoxContainer>("VBoxContainer2/PanelContainer/ScrollContainer/ItemList"));
             DiceButtonLabels.Add(buttonLabels);
+            int facetId = 0;
             foreach (Button button in container.GetNode<VBoxContainer>("VBoxContainer/VBoxContainer").GetChildren()) {
                 buttons.Add(button);
+                button.Connect("pressed", this, "FacetButtonClick", new Godot.Collections.Array() { diceId, facetId });
                 buttonLabels.Add(button.GetNode<RichTextLabel>("MarginContainer/RichTextLabel"));
+                facetId += 1;
             }
+            diceId += 1;
         }
         UpdateFromGameState();
+        UpdateUpgradeVisibility();
     }
     public void UpdateFromGameState() {
         InventoryText.BbcodeText = "Inventory\n\n" + string.Join("\n",
@@ -47,18 +55,54 @@ public class Gameplay : Node2D {
             foreach (Node node in DiceUpgrades[i].GetChildren()) {
                 DiceUpgrades[i].RemoveChild(node);
             }
+            int itemId = 0;
             foreach (DiceFacet facet in Shop.Items) {
                 if (dice.Name == facet.Type) {
                     DiceLayoutWithPrice node = DiceLayoutWithPricePrefab.Instance() as DiceLayoutWithPrice;
                     DiceUpgrades[i].AddChild(node);
-                    node.Initialize(facet);
+                    Button button = node.Initialize(facet);
+                    button.Connect("pressed", this, "UpdateButtonPressed", new Godot.Collections.Array() { itemId });
+                    itemId += 1;
                 }
             }
         }
-
+    }
+    void FacetButtonClick(int diceId, int facetId) {
+        if (currentSelectedDiceId == diceId && currentSelectedFaetId == facetId) {
+            currentSelectedDiceId = -1;
+            currentSelectedFaetId = -1;
+        } else {
+            currentSelectedDiceId = diceId;
+            currentSelectedFaetId = facetId;
+        }
+        UpdateUpgradeVisibility();
+    }
+    void UpdateButtonPressed(int itemId) {
+        if (!CanOperateNow)
+            return;
+        bool affordable = Shop.Items[itemId].Prices.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
+        if (affordable) {
+            foreach (KeyValuePair<string, int> req in Shop.Items[itemId].Prices) {
+                GameState.Inventory[req.Key] -= req.Value;
+            }
+            GameState.Dices[currentSelectedDiceId].Facets[currentSelectedFaetId] = Shop.Items[itemId];
+            currentSelectedDiceId = -1;
+            currentSelectedFaetId = -1;
+            UpdateFromGameState();
+            UpdateUpgradeVisibility();
+        }
+    }
+    void UpdateUpgradeVisibility() {
+        for (int i = 0; i < GameState.Dices.Length; ++i) {
+            if (i == currentSelectedDiceId) {
+                DiceUpgrades[i].Visible = true;
+            } else {
+                DiceUpgrades[i].Visible = false;
+            }
+        }
     }
 
-    private bool CanRollNow = true;
+    private bool CanOperateNow = true;
     private bool IsBlinking = false;
     private int BlinkStage;
     private int BlinkingDiceI;
@@ -106,8 +150,8 @@ public class Gameplay : Node2D {
     }
 
     public void OnRollPressed() {
-        if (CanRollNow) {
-            CanRollNow = false;
+        if (CanOperateNow) {
+            CanOperateNow = false;
             IsBlinking = true;
             BlinkStage = 0;
             BlinkingDiceI = 0;
@@ -116,6 +160,9 @@ public class Gameplay : Node2D {
             BlinkDuration = BLINK_DURATION_MEAN + (float) (
                 (new Random().NextDouble() - .5) * .4
             );
+            currentSelectedDiceId = -1;
+            currentSelectedFaetId = -1;
+            UpdateUpgradeVisibility();
         }
     }
 

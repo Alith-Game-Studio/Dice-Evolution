@@ -4,9 +4,9 @@ using System.Linq;
 
 public class DiceLayoutWithPrice : HBoxContainer {
 
-    public void Initialize(DiceFacet facet) {
+    public Button Initialize(DiceFacet facet) {
         GetNode<RichTextLabel>("Button/MarginContainer/RichTextLabel").BbcodeText = facet.ToDescription();
-        GetNode<RichTextLabel>("MarginContainer/PriceLabel").BbcodeText = string.Join("", facet.Prices.Select(s => Symbols.ImgBB(s)));
-
+        GetNode<RichTextLabel>("MarginContainer/PriceLabel").BbcodeText = DiceFacet.DictToDescription(facet.Prices);
+        return GetNode<Button>("Button");
     }
 }
