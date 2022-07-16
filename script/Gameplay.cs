@@ -78,6 +78,8 @@ public class Gameplay : Node2D {
         UpdateUpgradeVisibility();
     }
     void UpdateButtonPressed(int itemId) {
+        if (!CanOperateNow)
+            return;
         bool affordable = Shop.Items[itemId].Prices.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
         if (affordable) {
             foreach (KeyValuePair<string, int> req in Shop.Items[itemId].Prices) {
@@ -100,7 +102,7 @@ public class Gameplay : Node2D {
         }
     }
 
-    private bool CanRollNow = true;
+    private bool CanOperateNow = true;
     private bool IsBlinking = false;
     private int BlinkStage;
     private int BlinkingDiceI;
@@ -148,8 +150,8 @@ public class Gameplay : Node2D {
     }
 
     public void OnRollPressed() {
-        if (CanRollNow) {
-            CanRollNow = false;
+        if (CanOperateNow) {
+            CanOperateNow = false;
             IsBlinking = true;
             BlinkStage = 0;
             BlinkingDiceI = 0;
@@ -158,6 +160,9 @@ public class Gameplay : Node2D {
             BlinkDuration = BLINK_DURATION_MEAN + (float) (
                 (new Random().NextDouble() - .5) * .4
             );
+            currentSelectedDiceId = -1;
+            currentSelectedFaetId = -1;
+            UpdateUpgradeVisibility();
         }
     }
 
