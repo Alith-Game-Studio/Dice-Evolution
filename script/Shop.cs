@@ -57,7 +57,7 @@ public class Shop {
                 "fight"
             ),
             new DiceFacetConvert(
-                new string[] {"mana", "fire", "earth"}, 
+                new string[] {"mana", "earth$2"}, 
                 new string[] {"copper"}, 
                 new string[] {"earth"}, 
                 "work"
@@ -69,7 +69,7 @@ public class Shop {
                 "work"
             ),
             new DiceFacetConvert(
-                new string[] {"mana", "fire", "earth$3"}, 
+                new string[] {"mana", "earth$3"}, 
                 new string[] {"copper$4"}, 
                 new string[] {"earth$2", "copper"}, 
                 "work"
