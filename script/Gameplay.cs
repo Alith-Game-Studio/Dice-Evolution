@@ -121,7 +121,7 @@ public class Gameplay : Node2D {
     private int BlinkOffset;
     private float BlinkDuration;
     const float BLINK_INIT_VELOCITY = 12;
-    const float BLINK_DURATION_MEAN = 3;
+    const float BLINK_DURATION_MEAN = 2;
     const float BLINK_SELF_INTERVAL = .3f;
     const float BLINK_SELF_DURATION = 1;
     Color BLINK_MODULATE = new Color(255, 120, 0);
