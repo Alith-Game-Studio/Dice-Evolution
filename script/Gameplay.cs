@@ -14,7 +14,9 @@ public class Gameplay : Node2D {
     Random rng = new Random();
     public Button RollButton { get; set; }
 
-    int currentSelectedDiceId = -1, currentSelectedFacetId = -1;
+    int currentSelectedDiceId = -1;
+    int currentSelectedFacetId = -1;
+    int currentSelectedShopItemId = -1;
     public override void _Ready() {
         DiceLayoutWithPricePrefab = GD.Load<PackedScene>("res://DiceLayoutWithPrice.tscn");
         InventoryText = GetNode<RichTextLabel>("InventoryText");
@@ -57,15 +59,15 @@ public class Gameplay : Node2D {
     public void UpdateFromGameState() {
         InventoryText.BbcodeText = "Inventory\n\n" + string.Join("\n",
             GameState.Inventory.Where(kv => kv.Value > 0).Select(ReprItemStack));
-        for (int i = 0; i < GameState.Dices.Length; ++i) {
-            Dice dice =  GameState.Dices[i];
-            DiceNameLabels[i].BbcodeText = Symbols.CenterBB(dice.ToDescription());
+        for (int diceId = 0; diceId < GameState.Dices.Length; ++diceId) {
+            Dice dice =  GameState.Dices[diceId];
+            DiceNameLabels[diceId].BbcodeText = Symbols.CenterBB(dice.ToDescription());
             for (int j = 0; j < dice.Facets.Length; ++j) {
                 DiceFacet facet = dice.Facets[j];
-                DiceButtonLabels[i][j].BbcodeText = Symbols.CenterBB(facet.ToDescription());
+                DiceButtonLabels[diceId][j].BbcodeText = Symbols.CenterBB(facet.ToDescription());
             }
-            foreach (Node node in DiceUpgrades[i].GetChildren()) {
-                DiceUpgrades[i].RemoveChild(node);
+            foreach (Node node in DiceUpgrades[diceId].GetChildren()) {
+                DiceUpgrades[diceId].RemoveChild(node);
             }
             int itemId = 0;
             foreach (DiceFacet facet in Shop.Items) {
@@ -81,33 +83,63 @@ public class Gameplay : Node2D {
                         continue;
                     }
                     DiceLayoutWithPrice node = DiceLayoutWithPricePrefab.Instance() as DiceLayoutWithPrice;
-                    DiceUpgrades[i].AddChild(node);
+                    DiceUpgrades[diceId].AddChild(node);
                     Button button = node.Initialize(facet);
-                    button.Connect("pressed", this, "UpdateButtonPressed", new Godot.Collections.Array() { itemId });
+                    button.Connect("pressed", this, "UpgradeButtonPressed", new Godot.Collections.Array() { diceId, itemId });
                 }
                 itemId += 1;
             }
         }
     }
     void FacetButtonClick(int diceId, int facetId) {
-        if (currentSelectedDiceId == diceId && currentSelectedFacetId == facetId) {
-            currentSelectedDiceId = -1;
-            currentSelectedFacetId = -1;
+        if (!CanOperateNow)
+            return;
+        if (currentSelectedDiceId == diceId) {
+            if (currentSelectedFacetId == facetId) {
+                currentSelectedFacetId = -1;
+            } else {
+                currentSelectedFacetId = facetId;
+            }
         } else {
             currentSelectedDiceId = diceId;
             currentSelectedFacetId = facetId;
+            currentSelectedShopItemId = -1;
         }
         UpdateUpgradeVisibility();
+        TryUpgrade();
     }
-    void UpdateButtonPressed(int itemId) {
+    void UpgradeButtonPressed(int diceId, int itemId) {
         if (!CanOperateNow)
             return;
-        bool affordable = Shop.Items[itemId].Prices.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
+        if (currentSelectedDiceId == diceId) {
+            if (currentSelectedShopItemId == itemId) {
+                currentSelectedShopItemId = -1;
+            } else {
+                currentSelectedShopItemId = itemId;
+            }
+        } else {
+            currentSelectedDiceId = diceId;
+            currentSelectedShopItemId = itemId;
+            currentSelectedFacetId = -1;
+        }
+        TryUpgrade();
+    }
+    void TryUpgrade() {
+        if (!CanOperateNow)
+            return;
+        if (
+            currentSelectedDiceId     == -1 ||
+            currentSelectedFacetId    == -1 ||
+            currentSelectedShopItemId == -1
+        ) 
+            return;
+        DiceFacet facet = Shop.Items[currentSelectedShopItemId];
+        bool affordable = facet.Prices.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
         if (affordable) {
-            foreach (KeyValuePair<string, int> req in Shop.Items[itemId].Prices) {
+            foreach (KeyValuePair<string, int> req in facet.Prices) {
                 GameState.Inventory[req.Key] -= req.Value;
             }
-            GameState.Dices[currentSelectedDiceId].Facets[currentSelectedFacetId] = Shop.Items[itemId];
+            GameState.Dices[currentSelectedDiceId].Facets[currentSelectedFacetId] = facet;
             currentSelectedDiceId = -1;
             currentSelectedFacetId = -1;
             UpdateFromGameState();
@@ -119,7 +151,7 @@ public class Gameplay : Node2D {
             if (i == currentSelectedDiceId) {
                 DiceUpgrades[i].Visible = true;
             } else {
-                DiceUpgrades[i].Visible = false;
+                // DiceUpgrades[i].Visible = false;
             }
         }
     }
