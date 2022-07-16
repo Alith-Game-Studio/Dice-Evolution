@@ -25,8 +25,8 @@ You generated 2  with 1  !"
 [node name="InventoryText" type="RichTextLabel" parent="."]
 margin_left = 19.0
 margin_top = 153.0
-margin_right = 320.0
-margin_bottom = 475.0
+margin_right = 368.0
+margin_bottom = 712.0
 theme = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "Inventory
