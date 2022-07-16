@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 public class DiceFacetConvert : DiceFacet {
-    public string[] Products;
+    public Dictionary<string, int> Products;
 
     public DiceFacetConvert(string[] ingradients, string[] products, string[] prices, string type) {
         Ingradients = ProcessCompressedStringList(ingradients);
@@ -14,12 +14,6 @@ public class DiceFacetConvert : DiceFacet {
         Type = type;
     }
     public override string ToDescription() {
-        StringBuilder sb = new StringBuilder();
-        if (Ingradients.Length > 0) {
-            sb.Append(string.Join("", Ingradients.Select(s => Symbols.ImgBB(s))));
-            sb.Append(Symbols.ImgBB("right_arrow"));
-        }
-        sb.Append(string.Join("", Products.Select(s => Symbols.ImgBB(s))));
-        return sb.ToString();
+        return base.ToDescription() + DictToDescription(Products);
     }
 }
