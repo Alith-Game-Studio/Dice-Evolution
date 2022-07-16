@@ -155,6 +155,7 @@ public class Gameplay : Node2D {
                     }
                 } else {                    
                     IsBlinking = false;
+                    DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = BLINK_MODULATE;
                     OnBlinkFinish(BlinkingDiceI, BlinkingFaceI);
                 }
             }
