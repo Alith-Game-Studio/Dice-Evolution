@@ -28,15 +28,30 @@ public abstract class DiceFacet {
         }
         return result;
     }
-    public static string DictToDescription(Dictionary<string, int> itemDict) {
+    public static string DictToDescription(Dictionary<string, int> itemDict, bool isMissingGray) {
         StringBuilder sb = new StringBuilder();
         foreach (KeyValuePair<string, int> kv in itemDict) {
-            string imgBB = Symbols.ImgBB(kv.Key);
+            string symbolWhite = Symbols.ImgBB(kv.Key);
+            string symbolGray  = Symbols.ImgBB(kv.Key + "_gray");
+            int numIHave = 0;
+            if (GameState.Inventory.ContainsKey(kv.Key)) {
+                numIHave = GameState.Inventory[kv.Key];
+            }
             if (kv.Value >= 3) {
-                sb.Append(Symbols.DigitBB(kv.Value) + imgBB);
+                bool isGray = isMissingGray && numIHave < kv.Value;
+                sb.Append(Symbols.DigitBB(kv.Value, isGray));
+                if (isGray) {
+                    sb.Append(symbolGray);
+                } else {
+                    sb.Append(symbolWhite);
+                }
             } else {
-                for (int _ = 0; _ < kv.Value; ++_)
-                    sb.Append(imgBB);
+                for (int i = 0; i < kv.Value; ++i)
+                    if (isMissingGray && numIHave <= i) {
+                        sb.Append(symbolGray);
+                    } else {
+                        sb.Append(symbolWhite);
+                    }
             }
         }
         return sb.ToString();
@@ -44,7 +59,7 @@ public abstract class DiceFacet {
     public virtual string ToDescription() {
         StringBuilder sb = new StringBuilder();
         if (Ingradients.Count > 0) {
-            sb.Append(DictToDescription(Ingradients));
+            sb.Append(DictToDescription(Ingradients, true));
             sb.Append(Symbols.ImgBB("right_arrow"));
         }
         return sb.ToString();

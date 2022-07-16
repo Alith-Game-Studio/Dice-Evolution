@@ -14,6 +14,6 @@ public class DiceFacetConvert : DiceFacet {
         Type = type;
     }
     public override string ToDescription() {
-        return base.ToDescription() + DictToDescription(Products);
+        return base.ToDescription() + DictToDescription(Products, false);
     }
 }

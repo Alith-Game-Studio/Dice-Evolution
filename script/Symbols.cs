@@ -10,7 +10,11 @@ class Symbols {
     public static string CenterBB(string str) {
         return $"[center]{str}[/center]";
     }
-    public static string DigitBB(int number) {
-        return string.Join("", number.ToString().Select(c => ImgBB(c.ToString(), 12)));
+    public static string DigitBB(int number, bool isGray = false) {
+        string suffix = "";
+        if (isGray) {
+            suffix = "_gray";
+        }
+        return string.Join("", number.ToString().Select(c => ImgBB(c.ToString() + suffix, 12)));
     }
 }
