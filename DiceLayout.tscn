@@ -70,7 +70,7 @@ rect_min_size = Vector2( 0, 30 )
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center]Upgrades[/center]"
-text = "Upgrades"
+text = "Change face"
 scroll_active = false
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer2"]
