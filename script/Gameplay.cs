@@ -30,10 +30,10 @@ public class Gameplay : Node2D {
 
         for (int i = 0; i < GameState.Dices.Length; ++i) {
             Dice dice =  GameState.Dices[i];
-            DiceNameLabels[i].BbcodeText = dice.ToDescription();
+            DiceNameLabels[i].BbcodeText = Symbols.CenterBB(dice.ToDescription());
             for (int j = 0; j < dice.Facets.Length; ++j) {
                 DiceFacet facet = dice.Facets[j];
-                DiceButtonLabels[i][j].BbcodeText = facet.ToDescription();
+                DiceButtonLabels[i][j].BbcodeText = Symbols.CenterBB(facet.ToDescription());
             }
         }
     }
