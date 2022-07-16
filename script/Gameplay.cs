@@ -11,6 +11,7 @@ public class Gameplay : Node2D {
     public List<VBoxContainer> DiceUpgrades { get; set; }
     public RichTextLabel InventoryText { get; set; }
     public PackedScene DiceLayoutWithPricePrefab { get; set; }
+    Random rng = new Random();
 
     int currentSelectedDiceId = -1, currentSelectedFaetId = -1;
     public override void _Ready() {
@@ -170,9 +171,9 @@ public class Gameplay : Node2D {
             BlinkStage = 0;
             BlinkingDiceI = GameState.DiceIdToRoll;
             BlinkAge = 0;
-            BlinkOffset = new Random().Next(0, 6);
+            BlinkOffset = rng.Next(0, 6);
             BlinkDuration = BLINK_DURATION_MEAN + (float) (
-                (new Random().NextDouble() - .5) * .4
+                (rng.NextDouble() - .5) * .4
             );
             currentSelectedDiceId = -1;
             currentSelectedFaetId = -1;
