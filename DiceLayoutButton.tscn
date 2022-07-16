@@ -32,5 +32,4 @@ theme = ExtResource( 2 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center][img=24%]res://texture/Electric.png[/img][img=24%]res://texture/Electric.png[/img][img=24%]res://texture/ArrowRight.png[/img][img=24%]res://texture/Copper.png[/img][img=24%]res://texture/Triangle1.png[/img][/center]"
-text = "[center][img=24%]res://texture/Electric.png[/img][img=24%]res://texture/Electric.png[/img][img=24%]res://texture/ArrowRight.png[/img][img=24%]res://texture/Copper.png[/img][img=24%]res://texture/Triangle1.png[/img][/center]"
 scroll_active = false

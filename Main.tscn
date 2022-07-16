@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://DiceLayout.tscn" type="PackedScene" id=2]
+[ext_resource path="res://script/Gameplay.cs" type="Script" id=3]
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_left = 387.0

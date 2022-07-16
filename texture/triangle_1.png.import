@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/electric.png-1d31adc6cde26545b94960127c4a5b63.stex"
+path="res://.import/triangle_1.png-5bf64bc36e85fcd67a4ab0be9ba880a2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://texture/electric.png"
-dest_files=[ "res://.import/electric.png-1d31adc6cde26545b94960127c4a5b63.stex" ]
+source_file="res://texture/triangle_1.png"
+dest_files=[ "res://.import/triangle_1.png-5bf64bc36e85fcd67a4ab0be9ba880a2.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

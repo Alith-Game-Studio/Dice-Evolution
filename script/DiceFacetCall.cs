@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-public class DiceFacetConvert : DiceFacet {
-    public string[] Products;
-    public string[] Prices;
-
-    public DiceFacetConvert(string[] ingradients, string[] products, string[] prices) {
+public class DiceFacetCall : DiceFacet {
+    public Dice Dice;
+    public DiceFacetCall(string[] ingradients, Dice dice) {
         Ingradients = ingradients;
-        Products = products;
-        Prices = prices;
+        Dice = dice;
     }
     public override string ToDescription() {
         StringBuilder sb = new StringBuilder();
@@ -19,7 +15,7 @@ public class DiceFacetConvert : DiceFacet {
             sb.Append(string.Join("", Ingradients.Select(s => Symbols.ImgBB(s))));
             sb.Append(Symbols.ImgBB("right_arrow"));
         }
-        sb.Append(string.Join("", Products.Select(s => Symbols.ImgBB(s))));
+        sb.Append(Symbols.ImgBB(Dice.Name));
         return sb.ToString();
     }
 }

@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 public class Dice {
     public string Name { get; private set; }
-    public List<DiceFacet> Facets { get; private set; }
+    public DiceFacet[] Facets { get; private set; }
 
-    public Dice(string name, int sides) {
+    public Dice(string name, DiceFacet[] facets) {
         Name = name;
-        Facets = new List<DiceFacet>();
-
+        Facets = facets;
+    }
+    public string ToDescription() {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Dice ");
+        sb.Append(Symbols.ImgBB(Name));
+        return sb.ToString();
     }
 }
