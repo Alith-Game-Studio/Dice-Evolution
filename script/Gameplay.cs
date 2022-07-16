@@ -12,6 +12,7 @@ public class Gameplay : Node2D {
     public RichTextLabel InventoryText { get; set; }
     public PackedScene DiceLayoutWithPricePrefab { get; set; }
     Random rng = new Random();
+    public Button RollButton { get; set; }
 
     int currentSelectedDiceId = -1, currentSelectedFaetId = -1;
     public override void _Ready() {
@@ -22,6 +23,7 @@ public class Gameplay : Node2D {
         DiceButtons = new List<List<Button>>();
         DiceButtonLabels = new List<List<RichTextLabel>>();
         DiceUpgrades = new List<VBoxContainer>();
+        RollButton = GetNode<Button>("Button");
         int diceId = 0;
         foreach (HBoxContainer container in GetNode<GridContainer>("HBoxContainer").GetChildren()) {
             DiceLayouts.Add(container);
@@ -167,6 +169,7 @@ public class Gameplay : Node2D {
                 BlinkingFaceI = -1;
             }
             CanOperateNow = false;
+            RollButton.Visible = false;
             IsBlinking = true;
             BlinkStage = 0;
             BlinkingDiceI = GameState.DiceIdToRoll;
@@ -215,5 +218,6 @@ public class Gameplay : Node2D {
         UpdateFromGameState();
         UpdateUpgradeVisibility();
         CanOperateNow = true;
+        RollButton.Visible = true;
     }
 }
