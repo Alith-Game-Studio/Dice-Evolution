@@ -49,7 +49,7 @@ public class Gameplay : Node2D {
         UpdateUpgradeVisibility();
     }
     private string ReprItemStack(KeyValuePair<string, int> kv) {
-        if (kv.Value < 6) {
+        if (kv.Value < 8) {
             return string.Concat(Enumerable.Repeat(
                 Symbols.ImgBB(kv.Key), kv.Value
             ));
@@ -80,13 +80,12 @@ public class Gameplay : Node2D {
                             break;
                         }
                     } 
-                    if (hideForNow) {
-                        continue;
+                    if (!hideForNow) {
+                        DiceLayoutWithPrice node = DiceLayoutWithPricePrefab.Instance() as DiceLayoutWithPrice;
+                        DiceUpgrades[diceId].AddChild(node);
+                        Button button = node.Initialize(facet);
+                        button.Connect("pressed", this, "UpgradeButtonPressed", new Godot.Collections.Array() { diceId, itemId });
                     }
-                    DiceLayoutWithPrice node = DiceLayoutWithPricePrefab.Instance() as DiceLayoutWithPrice;
-                    DiceUpgrades[diceId].AddChild(node);
-                    Button button = node.Initialize(facet);
-                    button.Connect("pressed", this, "UpgradeButtonPressed", new Godot.Collections.Array() { diceId, itemId });
                 }
                 itemId += 1;
             }
@@ -128,6 +127,7 @@ public class Gameplay : Node2D {
     void TryUpgrade() {
         if (!CanOperateNow)
             return;
+        GD.Print("TryUpgrade");
         if (
             currentSelectedDiceId     == -1 ||
             currentSelectedFacetId    == -1 ||
@@ -136,6 +136,12 @@ public class Gameplay : Node2D {
             return;
         DiceFacet facet = Shop.Items[currentSelectedShopItemId];
         bool affordable = facet.Prices.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
+        // foreach (var req in facet.Prices) {
+        //     GD.Print(req.Key);
+        //     GD.Print(req.Value);
+        //     GD.Print(GameState.Inventory.ContainsKey(req.Key));
+        //     GD.Print(GameState.Inventory[req.Key] >= req.Value);
+        // }
         if (affordable) {
             foreach (KeyValuePair<string, int> req in facet.Prices) {
                 GameState.Inventory[req.Key] -= req.Value;
@@ -145,6 +151,8 @@ public class Gameplay : Node2D {
             currentSelectedFacetId = -1;
             UpdateFromGameState();
             UpdateUpgradeVisibility();
+        } else {
+            GD.Print("cannot afford");
         }
     }
     void UpdateUpgradeVisibility() {
@@ -169,7 +177,7 @@ public class Gameplay : Node2D {
     const float BLINK_DURATION_MEAN = 1;
     const float BLINK_SELF_INTERVAL = .2f;
     const float BLINK_SELF_DURATION = .5f;
-    Color BLINK_MODULATE = new Color(255, 120, 0);
+    Color BLINK_MODULATE = new Color(255, 200, 0);
     public override void _Process(float delta)
     {
         base._Process(delta);
