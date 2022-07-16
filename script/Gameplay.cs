@@ -1,26 +1,31 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Gameplay : Node2D {
-    List<HBoxContainer> DiceLayouts;
-    List<RichTextLabel> DiceNameLabels;
-    List<ItemList> DiceUpgradeLists;
-    List<List<Button>> DiceButtons;
-    List<List<RichTextLabel>> DiceButtonLabels;
+    public List<HBoxContainer> DiceLayouts { get; set; }
+    public List<RichTextLabel> DiceNameLabels { get; set; }
+    public List<List<Button>> DiceButtons { get; set; }
+    public List<List<RichTextLabel>> DiceButtonLabels { get; set; }
+    public List<VBoxContainer> DiceUpgrades { get; set; }
+    public RichTextLabel InventoryText { get; set; }
+    public PackedScene DiceLayoutWithPricePrefab { get; set; }
     public override void _Ready() {
+        DiceLayoutWithPricePrefab = GD.Load<PackedScene>("res://DiceLayoutWithPrice.tscn");
+        InventoryText = GetNode<RichTextLabel>("InventoryText");
         DiceLayouts = new List<HBoxContainer>();
         DiceNameLabels = new List<RichTextLabel>();
-        DiceUpgradeLists = new List<ItemList>();
         DiceButtons = new List<List<Button>>();
         DiceButtonLabels = new List<List<RichTextLabel>>();
-        foreach (HBoxContainer container in GetNode<HBoxContainer>("HBoxContainer").GetChildren()) {
+        DiceUpgrades = new List<VBoxContainer>();
+        foreach (HBoxContainer container in GetNode<GridContainer>("HBoxContainer").GetChildren()) {
             DiceLayouts.Add(container);
             List<Button> buttons = new List<Button>();
             List<RichTextLabel> buttonLabels = new List<RichTextLabel>();
             DiceNameLabels.Add(container.GetNode<RichTextLabel>("VBoxContainer/DiceName"));
-            DiceUpgradeLists.Add(container.GetNode<ItemList>("VBoxContainer2/ItemList"));
             DiceButtons.Add(buttons);
+            DiceUpgrades.Add(container.GetNode<VBoxContainer>("VBoxContainer2/PanelContainer/ScrollContainer/ItemList"));
             DiceButtonLabels.Add(buttonLabels);
             foreach (Button button in container.GetNode<VBoxContainer>("VBoxContainer/VBoxContainer").GetChildren()) {
                 buttons.Add(button);
@@ -30,7 +35,8 @@ public class Gameplay : Node2D {
         UpdateFromGameState();
     }
     public void UpdateFromGameState() {
-
+        InventoryText.BbcodeText = "Inventory\n\n" + string.Join("\n",
+            GameState.Inventory.Select(kv => $"{Symbols.ImgBB(kv.Key)}: {kv.Value}"));
         for (int i = 0; i < GameState.Dices.Length; ++i) {
             Dice dice =  GameState.Dices[i];
             DiceNameLabels[i].BbcodeText = Symbols.CenterBB(dice.ToDescription());
@@ -38,7 +44,18 @@ public class Gameplay : Node2D {
                 DiceFacet facet = dice.Facets[j];
                 DiceButtonLabels[i][j].BbcodeText = Symbols.CenterBB(facet.ToDescription());
             }
+            foreach (Node node in DiceUpgrades[i].GetChildren()) {
+                DiceUpgrades[i].RemoveChild(node);
+            }
+            foreach (DiceFacet facet in Shop.Items) {
+                if (dice.Name == facet.Type) {
+                    DiceLayoutWithPrice node = DiceLayoutWithPricePrefab.Instance() as DiceLayoutWithPrice;
+                    DiceUpgrades[i].AddChild(node);
+                    node.Initialize(facet);
+                }
+            }
         }
+
     }
 
     private bool CanRollNow = true;

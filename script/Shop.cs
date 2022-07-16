@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 public class Shop {
-    static DiceFacet[] Items;
+    public static DiceFacet[] Items;
     static Shop() {
         Items = new DiceFacet[] {
             new DiceFacetConvert(
