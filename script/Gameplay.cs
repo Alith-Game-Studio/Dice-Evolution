@@ -42,9 +42,18 @@ public class Gameplay : Node2D {
         UpdateFromGameState();
         UpdateUpgradeVisibility();
     }
+    private string ReprItemStack(KeyValuePair<string, int> kv) {
+        if (kv.Value < 6) {
+            return string.Concat(Enumerable.Repeat(
+                Symbols.ImgBB(kv.Key), kv.Value
+            ));
+        } else {
+            return $"{DigitBB(kv.Value)}{Symbols.ImgBB(kv.Key)}";
+        }
+    }
     public void UpdateFromGameState() {
         InventoryText.BbcodeText = "Inventory\n\n" + string.Join("\n",
-            GameState.Inventory.Select(kv => $"{Symbols.ImgBB(kv.Key)}: {kv.Value}"));
+            GameState.Inventory.Select(ReprItemStack));
         for (int i = 0; i < GameState.Dices.Length; ++i) {
             Dice dice =  GameState.Dices[i];
             DiceNameLabels[i].BbcodeText = Symbols.CenterBB(dice.ToDescription());
