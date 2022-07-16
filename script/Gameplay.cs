@@ -70,6 +70,16 @@ public class Gameplay : Node2D {
             int itemId = 0;
             foreach (DiceFacet facet in Shop.Items) {
                 if (dice.Name == facet.Type) {
+                    bool hideForNow = false;
+                    foreach (KeyValuePair<string, int> kv in facet.Prices) {
+                        if (!GameState.Inventory.ContainsKey(kv.Key)) {
+                            hideForNow = true;
+                            break;
+                        }
+                    } 
+                    if (hideForNow) {
+                        continue;
+                    }
                     DiceLayoutWithPrice node = DiceLayoutWithPricePrefab.Instance() as DiceLayoutWithPrice;
                     DiceUpgrades[i].AddChild(node);
                     Button button = node.Initialize(facet);
