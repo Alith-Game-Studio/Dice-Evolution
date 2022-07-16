@@ -14,7 +14,7 @@ public class Gameplay : Node2D {
     Random rng = new Random();
     public Button RollButton { get; set; }
 
-    int currentSelectedDiceId = -1, currentSelectedFaetId = -1;
+    int currentSelectedDiceId = -1, currentSelectedFacetId = -1;
     public override void _Ready() {
         DiceLayoutWithPricePrefab = GD.Load<PackedScene>("res://DiceLayoutWithPrice.tscn");
         InventoryText = GetNode<RichTextLabel>("InventoryText");
@@ -56,7 +56,7 @@ public class Gameplay : Node2D {
     }
     public void UpdateFromGameState() {
         InventoryText.BbcodeText = "Inventory\n\n" + string.Join("\n",
-            GameState.Inventory.Select(ReprItemStack));
+            GameState.Inventory.Where(kv => kv.Value > 0).Select(ReprItemStack));
         for (int i = 0; i < GameState.Dices.Length; ++i) {
             Dice dice =  GameState.Dices[i];
             DiceNameLabels[i].BbcodeText = Symbols.CenterBB(dice.ToDescription());
@@ -74,18 +74,18 @@ public class Gameplay : Node2D {
                     DiceUpgrades[i].AddChild(node);
                     Button button = node.Initialize(facet);
                     button.Connect("pressed", this, "UpdateButtonPressed", new Godot.Collections.Array() { itemId });
-                    itemId += 1;
                 }
+                itemId += 1;
             }
         }
     }
     void FacetButtonClick(int diceId, int facetId) {
-        if (currentSelectedDiceId == diceId && currentSelectedFaetId == facetId) {
+        if (currentSelectedDiceId == diceId && currentSelectedFacetId == facetId) {
             currentSelectedDiceId = -1;
-            currentSelectedFaetId = -1;
+            currentSelectedFacetId = -1;
         } else {
             currentSelectedDiceId = diceId;
-            currentSelectedFaetId = facetId;
+            currentSelectedFacetId = facetId;
         }
         UpdateUpgradeVisibility();
     }
@@ -97,9 +97,9 @@ public class Gameplay : Node2D {
             foreach (KeyValuePair<string, int> req in Shop.Items[itemId].Prices) {
                 GameState.Inventory[req.Key] -= req.Value;
             }
-            GameState.Dices[currentSelectedDiceId].Facets[currentSelectedFaetId] = Shop.Items[itemId];
+            GameState.Dices[currentSelectedDiceId].Facets[currentSelectedFacetId] = Shop.Items[itemId];
             currentSelectedDiceId = -1;
-            currentSelectedFaetId = -1;
+            currentSelectedFacetId = -1;
             UpdateFromGameState();
             UpdateUpgradeVisibility();
         }
@@ -180,7 +180,7 @@ public class Gameplay : Node2D {
                 (rng.NextDouble() - .5) * .4
             );
             currentSelectedDiceId = -1;
-            currentSelectedFaetId = -1;
+            currentSelectedFacetId = -1;
             UpdateUpgradeVisibility();
         }
     }
@@ -215,7 +215,7 @@ public class Gameplay : Node2D {
             GameState.DiceIdToRoll = 0;
         }
         currentSelectedDiceId = -1;
-        currentSelectedFaetId = -1;
+        currentSelectedFacetId = -1;
         UpdateFromGameState();
         UpdateUpgradeVisibility();
         CanOperateNow = true;
