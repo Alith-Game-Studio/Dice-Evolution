@@ -29,7 +29,7 @@ public class Gameplay : Node2D {
     public void UpdateFromGameState() {
 
         for (int i = 0; i < GameState.Dices.Length; ++i) {
-            Dice dice = GameState.Dices[i];
+            Dice dice =  GameState.Dices[i];
             DiceNameLabels[i].BbcodeText = dice.ToDescription();
             for (int j = 0; j < dice.Facets.Length; ++j) {
                 DiceFacet facet = dice.Facets[j];
