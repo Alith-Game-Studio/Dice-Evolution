@@ -33,7 +33,7 @@ public abstract class DiceFacet {
         foreach (KeyValuePair<string, int> kv in itemDict) {
             string imgBB = Symbols.ImgBB(kv.Key);
             if (kv.Value >= 3) {
-                sb.Append(string.Join("", kv.Value.ToString().Select(c => Symbols.ImgBB(c.ToString(), 12))) + imgBB);
+                sb.Append(Symbols.DigitBB(kv.Value) + imgBB);
             } else {
                 for (int _ = 0; _ < kv.Value; ++_)
                     sb.Append(imgBB);
