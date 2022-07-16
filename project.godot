@@ -18,8 +18,8 @@ config/icon="res://icon.png"
 
 window/size/width=1366
 window/size/height=800
-window/stretch/mode="viewport"
 window/dpi/allow_hidpi=true
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [physics]

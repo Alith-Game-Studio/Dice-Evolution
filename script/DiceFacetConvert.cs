@@ -8,9 +8,9 @@ public class DiceFacetConvert : DiceFacet {
     public string[] Products;
 
     public DiceFacetConvert(string[] ingradients, string[] products, string[] prices, string type) {
-        Ingradients = ingradients;
-        Products = products;
-        Prices = prices;
+        Ingradients = ProcessCompressedStringList(ingradients);
+        Products = ProcessCompressedStringList(products);
+        Prices = ProcessCompressedStringList(prices);
         Type = type;
     }
     public override string ToDescription() {

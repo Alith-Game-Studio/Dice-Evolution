@@ -16,10 +16,10 @@ public class GameState : Node
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"air", "air"}, null, "fight"),
         });
         Dice dicePlay = new Dice("play", new DiceFacet[] {
-            new DiceFacetConvert(new string[] { }, new string[] {"mana", "mana"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana", "mana"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana", "mana"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana", "mana"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
             new DiceFacetCall(new string[] { }, diceFight, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"hp"}, null, "play"),
         });
