@@ -23,7 +23,7 @@ public class GameState : Node
         });
         Dice dicePlay = new Dice("play", new DiceFacet[] {
             new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana$3"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana"}, null, "play"),
             new DiceFacetCall(new string[] { }, "fight", null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
@@ -44,7 +44,7 @@ public class GameState : Node
                 new DiceFacetCall(new string[] { }, "work", null, "root"),
                 new DiceFacetCall(new string[] { }, "play", null, "root"),
                 new DiceFacetCall(new string[] { }, "work", null, "root"),
-                new DiceFacetCall(new string[] { }, "play", null, "root"),
+                new DiceFacetCall(new string[] { }, "fight", null, "root"),
             }),
             diceWork,
             dicePlay,
