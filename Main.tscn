@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://DiceLayout.tscn" type="PackedScene" id=2]
 [ext_resource path="res://script/Gameplay.cs" type="Script" id=3]
+[ext_resource path="res://texture/menu_bar_gray.png" type="Texture" id=4]
+[ext_resource path="res://texture/menu_bar.png" type="Texture" id=5]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -82,7 +84,21 @@ margin_right = 295.0
 margin_bottom = 43.0
 mouse_filter = 1
 bbcode_enabled = true
+bbcode_text = "[center]Roll[/center]"
+text = "Roll"
 scroll_active = false
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="BackButton" type="TextureButton" parent="."]
+margin_left = 25.0
+margin_top = 20.0
+margin_right = 63.0
+margin_bottom = 58.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 4 )
+expand = true
+
+[connection signal="button_down" from="BackButton" to="." method="OnBackButtonPressed"]
