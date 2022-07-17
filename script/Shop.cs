@@ -9,106 +9,112 @@ public class Shop {
     static Shop() {
         Items = new DiceFacet[] {
             new DiceFacetConvert(
-                new string[] {"fire"}, 
-                new string[] {"air"}, 
-                new string[] {"fire"}, 
+                new string[] {"mana", "mana"}, 
+                new string[] {"fire", "fire"}, 
+                new string[]{"water"}, 
+                "work"
+            ),
+            new DiceFacetConvert(
+                new string[] {"mana", "mana"}, 
+                new string[] {"earth", "earth"}, 
+                new string[]{"water", "water"}, 
+                "work"
+            ),
+            new DiceFacetConvert(
+                new string[] {"fire", "fire"}, 
+                new string[] {"copper"}, 
+                new string[]{"water", "water", "fire"}, 
                 "fight"
+            ),
+            new DiceFacetConvert(
+                new string[] {"mana", "earth", "earth"}, 
+                new string[] {"copper"}, 
+                new string[]{"water", "water", "earth"}, 
+                "work"
+            ),
+            new DiceFacetConvert(
+                new string[] { }, 
+                new string[] {"mana$4"}, 
+                new string[]{"water", "water", "air"}, 
+                "play"
             ),
             new DiceFacetCall(
                 new string[] { }, 
                 "fight", 
-                new string[] {"water$2"}, 
-                "play"
+                new string[]{"copper", "copper", "fire"}, 
+                "root"
             ),
             new DiceFacetConvert(
-                new string[] {"mana$2", "water"}, 
-                new string[] {"fire$3"}, 
-                new string[] {"air$2"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] {"fire", "water", "air"}, 
+                new string[] {"copper"}, 
                 new string[] {"elixir"}, 
-                new string[] {"air$2", "water"}, 
+                new string[]{"copper", "copper", "water"}, 
                 "fight"
             ),
             new DiceFacetConvert(
                 new string[] {"elixir"}, 
-                new string[] {"elixir$3"}, 
-                new string[] {"air$3"}, 
-                "fight"
-            ),
-            new DiceFacetConvert(
-                new string[] {"elixir"}, 
-                new string[] {"hp"}, 
-                new string[] {"elixir$3"}, 
+                new string[] {"hp", "hp"}, 
+                new string[]{"elixir", "elixir", "air"}, 
                 "play"
             ),
             new DiceFacetConvert(
-                new string[] {"mana"}, 
-                new string[] {"earth"}, 
-                new string[] {"fire"}, 
+                new string[] {"mana", "mana", "copper", "copper"}, 
+                new string[] {"mushroom"}, 
+                new string[]{"copper", "copper", "earth"}, 
                 "work"
             ),
             new DiceFacetCall(
                 new string[] { }, 
                 "work", 
-                new string[] {"earth$2"}, 
-                "fight"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mana", "earth$2"}, 
-                new string[] {"copper"}, 
-                new string[] {"earth"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mana$2"}, 
-                new string[] {"earth$3"}, 
-                new string[] {"copper"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mana", "earth$3"}, 
-                new string[] {"copper$4"}, 
-                new string[] {"earth$2", "copper"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mana$2"}, 
-                new string[] {"mushroom"}, 
-                new string[] {"copper$9"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mushroom", "elixir"}, 
-                new string[] {"skeleton"}, 
-                new string[] {"mana$2"}, 
-                "work"
+                new string[]{"mushroom", "mushroom", "fire"}, 
+                "root"
             ),
             new DiceFacetConvert(
                 new string[] {"elixir"}, 
-                new string[] {"mana$4"}, 
                 new string[] {"skeleton"}, 
-                "play"
-            ),
-            new DiceFacetConvert(
-                new string[] {"fire"}, 
-                new string[] {"water"}, 
-                new string[] {"mana"}, 
+                new string[]{"elixir", "elixir", "fire"}, 
                 "fight"
             ),
             new DiceFacetConvert(
-                new string[] {"mana$4"}, 
-                new string[] {"mushroom"}, 
-                new string[] {"mushroom"}, 
+                new string[] {"skeleton", "elixir"}, 
+                new string[] {"key"}, 
+                new string[]{"skeleton", "skeleton", "copper"}, 
+                "fight"
+            ),
+            new DiceFacetConvert(
+                new string[] {"mushroom", "mushroom", "copper", "copper"}, 
+                new string[] {"key"}, 
+                new string[]{"mushroom", "mushroom", "air"}, 
                 "work"
             ),
             new DiceFacetConvert(
+                new string[] {"mana$4"}, 
+                new string[] {"mushroom"}, 
+                new string[]{"key", "key", "earth"}, 
+                "work"
+            ),
+            new DiceFacetConvert(
+                new string[] {"air"}, 
+                new string[] {"elixir"}, 
+                new string[]{"key", "key", "fire"}, 
+                "fight"
+            ),
+            new DiceFacetConvert(
                 new string[] { }, 
-                new string[] {"mana$2"}, 
-                new string[] {"fire$3"}, 
+                new string[] {"mana$8"}, 
+                new string[]{"key", "key", "air"}, 
                 "play"
+            ),
+            new DiceFacetConvert(
+                new string[] {"mana$4", "elixir"}, 
+                new string[] {"bomb"}, 
+                new string[]{"mushroom", "mushroom", "skeleton", "skeleton"}, 
+                "work"
+            ),
+            new DiceFacetConvert(
+                new string[] {"bomb"}, 
+                new string[] {"key"}, 
+                new string[]{"bomb", "bomb", "air"}, 
+                "fight"
             ),
         };
     }

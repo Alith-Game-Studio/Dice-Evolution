@@ -35,23 +35,25 @@ margin_left = 353.0
 margin_top = 92.0
 margin_right = 1263.0
 margin_bottom = 636.0
+custom_constants/vseparation = 20
+custom_constants/hseparation = 20
 columns = 2
 
 [node name="DiceLayout" parent="HBoxContainer" instance=ExtResource( 2 )]
 
 [node name="DiceLayout2" parent="HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 457.0
-margin_right = 910.0
+margin_left = 473.0
+margin_right = 926.0
 
 [node name="DiceLayout3" parent="HBoxContainer" instance=ExtResource( 2 )]
-margin_top = 274.0
-margin_bottom = 544.0
+margin_top = 290.0
+margin_bottom = 560.0
 
 [node name="DiceLayout4" parent="HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 457.0
-margin_top = 274.0
-margin_right = 910.0
-margin_bottom = 544.0
+margin_left = 473.0
+margin_top = 290.0
+margin_right = 926.0
+margin_bottom = 560.0
 
 [node name="DiceLayout5" parent="HBoxContainer" instance=ExtResource( 2 )]
 visible = false
