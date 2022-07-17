@@ -120,13 +120,15 @@ public class Gameplay : Node2D {
         TryUpgrade(diceId, facetId);
     }
     void UpgradeButtonPressed(int diceId, int itemId) {
-        MyLogPane.Write("Which face to replace?");
-        MyLogPane.Flush();
         GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
         if (itemId != currentSelectedItemId) {
             currentSelectedItemId = itemId;
+            MyLogPane.Write("Which face to replace?");
+            MyLogPane.Flush();
         } else {
             currentSelectedItemId = -1;
+            MyLogPane.Write("Cancelled.");
+            MyLogPane.Flush();
         }
         UpdateFromGameState();
     }
