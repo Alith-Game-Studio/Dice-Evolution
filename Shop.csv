@@ -7,11 +7,11 @@ fight	elixir|elixir|fire	elixir	skeleton
 fight	skeleton|skeleton|copper	skeleton|elixir	key	
 fight	key|key|fire	air	elixir	
 fight	bomb|bomb|air	bomb	key	
-play	earth|earth		mana$2	
-play	fire|fire		mana$3	
-play	water|water|air		mana$4	
+play	earth		mana$4	
+play	fire|fire		mana$6	
+play	water|water|air		mana$8	
 play	elixir|elixir|air	elixir	hp	
-play	key|key|air		mana$8	
+play	key|key|air		mana$16	
 root	copper|copper|fire	mana		fight
 root	mushroom|mushroom|fire	mana		work
 root	skeleton|skeleton|air	mana		play
