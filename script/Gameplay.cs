@@ -272,9 +272,8 @@ public class Gameplay : Node2D {
                 Transact(new Dictionary<string, int> {
                     {"hp", 1}, 
                 }, ToReceive);
-                MyLogPane.Write("Lost the ");
                 MyLogPane.Write(Symbols.ImgBB("fight"));
-                MyLogPane.Write(". ");
+                MyLogPane.Write(" failed. ");
                 MyLogPane.Write(Symbols.ImgBB("hp"));
                 MyLogPane.Write(" - 1.");
                 MyLogPane.Flush();
