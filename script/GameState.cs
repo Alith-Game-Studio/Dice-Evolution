@@ -9,7 +9,8 @@ public class GameState : Node
     public static int DiceIdToRoll { get; set; }
     public static int RoundNumber { get; set; }
     public static void Reset() {
-
+        RoundNumber = 0;
+        DiceIdToRoll = 0;
         Inventory = new Dictionary<string, int>() {
             {"mana", 15},
             {"hp", 5 },
@@ -18,17 +19,17 @@ public class GameState : Node
         Dice diceFight = new Dice("fight", new DiceFacet[] {
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
-            new DiceFacetConvert(new string[] {"fire"}, new string[]{"mana$3"}, null, "fight"),
+            new DiceFacetConvert(new string[] {"fire"}, new string[]{"mana$4"}, null, "fight"),
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
-            new DiceFacetConvert(new string[] {"fire"}, new string[]{"mana$3"}, null, "fight"),
+            new DiceFacetConvert(new string[] {"fire"}, new string[]{"mana$4"}, null, "fight"),
         });
         Dice dicePlay = new Dice("play", new DiceFacet[] {
-            new DiceFacetConvert(new string[] { }, new string[] {"mana"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana"}, null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$4"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"hp"}, null, "play"),
         });
         Dice diceWork = new Dice("work", new DiceFacet[] {
