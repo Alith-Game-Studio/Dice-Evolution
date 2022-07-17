@@ -1,10 +1,9 @@
-[gd_resource type="Theme" load_steps=13 format=2]
+[gd_resource type="Theme" load_steps=12 format=2]
 
 [ext_resource path="res://font/justanotherhand-regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://texture/ButtonHighlighted.png" type="Texture" id=2]
 [ext_resource path="res://texture/Button.png" type="Texture" id=3]
-[ext_resource path="res://texture/ButtonPressed.png" type="Texture" id=4]
-[ext_resource path="res://texture/ButtonDisabled.png" type="Texture" id=5]
+[ext_resource path="res://texture/ButtonYellow.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=9]
 size = 50
@@ -28,7 +27,7 @@ margin_top = 1.0
 margin_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=8]
-texture = ExtResource( 5 )
+texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 32, 32 )
 margin_left = 1.0
 margin_right = 1.0
