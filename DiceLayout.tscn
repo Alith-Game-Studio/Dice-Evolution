@@ -11,12 +11,12 @@ rect_min_size = Vector2( 453, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 150.0
-margin_bottom = 270.0
+margin_bottom = 277.0
 
 [node name="DiceName" type="RichTextLabel" parent="VBoxContainer"]
 margin_right = 150.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+margin_bottom = 37.0
+rect_min_size = Vector2( 0, 37 )
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center]Dice 1[/center]"
@@ -24,9 +24,9 @@ text = "Dice 1"
 scroll_active = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 34.0
+margin_top = 41.0
 margin_right = 150.0
-margin_bottom = 270.0
+margin_bottom = 277.0
 
 [node name="Button1" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 margin_right = 150.0
@@ -60,23 +60,23 @@ margin_bottom = 236.0
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 margin_left = 154.0
 margin_right = 444.0
-margin_bottom = 270.0
+margin_bottom = 277.0
 rect_min_size = Vector2( 290, 0 )
 
 [node name="UpgradeTextBox" type="RichTextLabel" parent="VBoxContainer2"]
 margin_right = 290.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+margin_bottom = 37.0
+rect_min_size = Vector2( 0, 37 )
 theme = ExtResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[center]Price   /   New Face   [/center]"
-text = "Price   /   New Face   "
+bbcode_text = "[center]Price   [img=18%]res://texture/slash.png[/img]   New Face   [/center]"
+text = "Price      New Face   "
 scroll_active = false
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer2"]
-margin_top = 34.0
+margin_top = 41.0
 margin_right = 290.0
-margin_bottom = 270.0
+margin_bottom = 277.0
 size_flags_vertical = 3
 theme = ExtResource( 2 )
 
