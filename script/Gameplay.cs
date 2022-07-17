@@ -123,7 +123,7 @@ public class Gameplay : Node2D {
     void TryUpgrade(int itemId) {
         if (!CanOperateNow)
             return;
-        GD.Print("TryUpgrade");
+        // GD.Print("TryUpgrade");
         if (
             currentSelectedDiceId     == -1 ||
             currentSelectedFacetId    == -1
@@ -233,6 +233,7 @@ public class Gameplay : Node2D {
                         GameState.Inventory[prod.Key] += prod.Value;
                 }
                 GameState.DiceIdToRoll = 0;
+                GameState.RoundNumber ++;
             }
         } else {
             if (GameState.Dices[diceI].Name == "fight") {

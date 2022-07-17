@@ -22,7 +22,7 @@ public class Shop {
             ),
             new DiceFacetConvert(
                 new string[] {"mana", "water"}, 
-                new string[] {"fire$3"}, 
+                new string[] {"fire$2"}, 
                 new string[] {"air"}, 
                 "work"
             ),
