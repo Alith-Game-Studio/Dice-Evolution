@@ -15,7 +15,7 @@ script = ExtResource( 3 )
 margin_left = 80.0
 margin_top = 95.0
 margin_right = 289.0
-margin_bottom = 437.0
+margin_bottom = 527.0
 theme = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "Inventory
@@ -109,6 +109,9 @@ expand = true
 stream = ExtResource( 6 )
 
 [node name="LogPane" parent="." instance=ExtResource( 7 )]
-position = Vector2( 76, 500 )
+margin_left = 71.0
+margin_top = 569.0
+margin_right = 271.0
+margin_bottom = 719.0
 
 [connection signal="button_down" from="BackButton" to="." method="OnBackButtonPressed"]

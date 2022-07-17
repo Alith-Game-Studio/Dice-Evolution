@@ -16,6 +16,7 @@ public class Gameplay : Node2D {
     public Button RollButton { get; set; }
     public RichTextLabel RollButtonText { get; set; }
     public AudioStreamPlayer TickPlayer { get; set; }
+    public LogPane MyLogPane { get; set; }
 
     int currentSelectedItemId = -1;
     public override void _Ready() {
@@ -48,6 +49,7 @@ public class Gameplay : Node2D {
             }
             diceId += 1;
         }
+        MyLogPane = GetNode<LogPane> ("LogPane");
         UpdateFromGameState();
     }
     public void UpdateFromGameState() {
@@ -111,6 +113,8 @@ public class Gameplay : Node2D {
         TryUpgrade(diceId, facetId);
     }
     void UpgradeButtonPressed(int diceId, int itemId) {
+        MyLogPane.Write("Which face to replace?");
+        MyLogPane.Flush();
         GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
         if (itemId != currentSelectedItemId) {
             currentSelectedItemId = itemId;
@@ -139,8 +143,11 @@ public class Gameplay : Node2D {
             BlinkingFaceI = facetId;
             currentSelectedItemId = -1;
             Transact(facet.Prices, new Dictionary<string, int> { });
+            MyLogPane.Write("Face changed.");
+            MyLogPane.Flush();
         } else {
-            GD.Print("cannot afford");
+            MyLogPane.Write("That face is unaffordable.");
+            MyLogPane.Flush();
         }
         UpdateFromGameState();
     }
@@ -201,6 +208,10 @@ public class Gameplay : Node2D {
 
     public void OnRollPressed() {
         if (CanOperateNow) {
+            MyLogPane.Write("Rolled the dice ");
+            MyLogPane.Write(Symbols.ImgBB(GameState.Dices[GameState.DiceIdToRoll].Name));
+            MyLogPane.Write(". ");
+            MyLogPane.Flush();
             GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
             if (BlinkingDiceI >= 0) {
                 DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = Colors.White;
@@ -243,11 +254,24 @@ public class Gameplay : Node2D {
                 GameState.RoundNumber ++;
             }
             Transact(facet.Ingredients, ToReceive);
+            MyLogPane.Write(Symbols.ImgBB(GameState.Dices[diceI].Name));
+            MyLogPane.Write(" successful.");
+            MyLogPane.Flush();
         } else {
             if (GameState.Dices[diceI].Name == "fight") {
                 Transact(new Dictionary<string, int> {
                     {"hp", 1}, 
                 }, ToReceive);
+                MyLogPane.Write("Lost the ");
+                MyLogPane.Write(Symbols.ImgBB("fight"));
+                MyLogPane.Write(". ");
+                MyLogPane.Write(Symbols.ImgBB("hp"));
+                MyLogPane.Write(" - 1.");
+                MyLogPane.Flush();
+            } else {
+                MyLogPane.Write(Symbols.ImgBB(GameState.Dices[diceI].Name));
+                MyLogPane.Write(" failed.");
+                MyLogPane.Flush();
             }
             GameState.DiceIdToRoll = 0;
         }

@@ -2,16 +2,14 @@ using Godot;
 using System;
 using System.Text;
 
-public class LogPane : Node2D
+public class LogPane : RichTextLabel
 {
     private StringBuilder sb;
-    private RichTextLabel LogLabel;
     private string LastLog;
     private int Combo;
     public override void _Ready()
     {
         sb = new StringBuilder();
-        LogLabel = GetNode<RichTextLabel>("LogLabel");
         LastLog = "";
         Combo = 0;
     }
@@ -30,6 +28,7 @@ public class LogPane : Node2D
 
     public void Flush() {
         string newLog = sb.ToString();
+        sb.Clear();
         if (newLog == LastLog) {
             Combo ++;
         } else {
@@ -39,6 +38,6 @@ public class LogPane : Node2D
         if (Combo >= 2) {
             newLog += $" x {Combo}";
         }
-        LogLabel.Text = newLog;
+        BbcodeText = newLog;
     }
 }
