@@ -13,31 +13,31 @@ public class GameState : Node
         Inventory = new Dictionary<string, int>() {
             {"mana", 15},
             {"hp", 5 },
-            {"fire", 2 },
+            {"fire", 3 },
         };
         Dice diceFight = new Dice("fight", new DiceFacet[] {
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
-            new DiceFacetConvert(new string[] {"fire"}, new string[]{"air"}, null, "fight"),
+            new DiceFacetConvert(new string[] {"fire"}, new string[]{"mana$3"}, null, "fight"),
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
             new DiceFacetConvert(new string[] {"fire"}, new string[]{"water"}, null, "fight"),
-            new DiceFacetConvert(new string[] {"fire"}, new string[]{"air"}, null, "fight"),
+            new DiceFacetConvert(new string[] {"fire"}, new string[]{"mana$3"}, null, "fight"),
         });
         Dice dicePlay = new Dice("play", new DiceFacet[] {
+            new DiceFacetConvert(new string[] { }, new string[] {"mana"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana"}, null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana$4"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana"}, null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"hp"}, null, "play"),
         });
         Dice diceWork = new Dice("work", new DiceFacet[] {
-            new DiceFacetConvert(new string[] {"mana"}, new string[]{"fire"}, null, "work"),
-            new DiceFacetConvert(new string[] {"mana"}, new string[]{"fire"}, null, "work"),
-            new DiceFacetConvert(new string[] {"mana"}, new string[]{"earth"}, null, "work"),
-            new DiceFacetConvert(new string[] {"mana"}, new string[]{"earth"}, null, "work"),
-            new DiceFacetConvert(new string[] {"mana"}, new string[]{"air"}, null, "work"),
-            new DiceFacetConvert(new string[] {"mana"}, new string[]{"air"}, null, "work"),
+            new DiceFacetConvert(new string[] { }, new string[]{"fire"}, null, "work"),
+            new DiceFacetConvert(new string[] { }, new string[]{"fire"}, null, "work"),
+            new DiceFacetConvert(new string[] { }, new string[]{"earth"}, null, "work"),
+            new DiceFacetConvert(new string[] { }, new string[]{"earth"}, null, "work"),
+            new DiceFacetConvert(new string[] { }, new string[]{"air"}, null, "work"),
+            new DiceFacetConvert(new string[] { }, new string[]{"air"}, null, "work"),
         });
         Dices = new Dice[] {
             new Dice("root", new DiceFacet[] {
