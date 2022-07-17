@@ -8,8 +8,7 @@ public abstract class DiceFacet {
     public Dictionary<string, int> Ingredients;
     public Dictionary<string, int> Prices;
     public string Type { get; set; }
-
-    protected Dictionary<string, int> ProcessCompressedStringList(string[] list) {
+    public static Dictionary<string, int> ProcessCompressedStringList(string[] list) {
         if (list == null)
             return null;
         Dictionary<string, int> result = new Dictionary<string, int>();
@@ -20,6 +19,9 @@ public abstract class DiceFacet {
                 string[] split = str.Split('$');
                 count = int.Parse(split[1]);
                 key = split[0];
+            }
+            if (!Symbols.ValidSymbolList.ContainsKey(key)) {
+                throw new Exception("Unknown symbol " + key);
             }
             if (result.ContainsKey(key))
                 result[key] += count;

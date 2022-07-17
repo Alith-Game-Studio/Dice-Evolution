@@ -1,25 +1,31 @@
-PLACE	PRICE	INGRADIENT	PRODUCTS	CALL
-fight	elixir|earth	fire	water	
-fight	elixir|fire	fire	air	
-fight	water|water|fire	fire|fire	copper	
-fight	copper|copper|water	copper	elixir	
-fight	elixir|elixir|fire	elixir	skeleton	
-fight	skeleton|skeleton|copper	skeleton|elixir	key	
-fight	key|key|fire	air	elixir	
-fight	bomb|bomb|air	bomb	key	
-play	earth		mana$4	
-play	fire|fire		mana$6	
-play	water|water|air		mana$8	
-play	elixir|elixir|air	elixir	hp	
-play	key|key|air		mana$16	
-root	copper|copper|fire	mana		fight
-root	mushroom|mushroom|fire	mana		work
-root	skeleton|skeleton|air	mana		play
-work	water	mana	fire$2	
-work	water$2	mana	earth$2	
-work	water$3	mana	air$2	
-work	water|water|earth	earth|earth	copper	
-work	copper|copper|earth	mana|copper|copper	mushroom	
-work	mushroom|mushroom|air	mushroom|mushroom|copper|copper	key	
-work	key|key|earth	mana$3	mushroom	
-work	mushroom|mushroom|skeleton|skeleton	mana$3|elixir	bomb	
+PLACE	PRICE	INGRADIENT	PRODUCTS	CALL	INITIAL_FACES
+fight	elixir|earth	fire	water		0|1|3|4
+fight	elixir|fire	fire	air		2|5
+fight	water|water|fire	fire|fire	copper		
+fight	copper|copper|water	copper	elixir		
+fight	elixir|elixir|fire	elixir	skeleton		
+fight	skeleton|skeleton|copper	skeleton|elixir	key		
+fight	key|key|fire	air	elixir		
+fight	bomb|bomb|air	bomb	key		
+play	unknown		hp		5
+play	unknown		mana$2		0|1|3|4
+play	earth		mana$4		2
+play	fire|fire		mana$6		
+play	water|water|air		mana$8		
+play	elixir|elixir|air	elixir	hp		
+play	key|key|air		mana$16		
+root	copper|copper|fire	mana		fight	0|3
+root	mushroom|mushroom|fire	mana		work	1|4
+root	skeleton|skeleton|air	mana		play	2|5
+work	unknown		fire		0|1
+work	unknown		earth		2|3
+work	unknown		air		4|5
+work	water	mana	fire$2		
+work	water$2	mana	earth$2		
+work	water$3	mana	air$2		
+work	water|water|earth	earth|earth	copper		
+work	copper|copper|earth	mana|copper|copper	mushroom		
+work	mushroom|mushroom|air	mushroom|mushroom|copper|copper	key		
+work	key|key|earth	mana$3	mushroom		
+work	mushroom|mushroom|skeleton|skeleton	mana$3|elixir	bomb		
+root|fight|play|work			mana$15|hp$5|fire$3		
