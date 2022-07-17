@@ -8,10 +8,10 @@
 script = ExtResource( 3 )
 
 [node name="InventoryText" type="RichTextLabel" parent="."]
-margin_left = 77.0
+margin_left = 80.0
 margin_top = 95.0
-margin_right = 275.0
-margin_bottom = 726.0
+margin_right = 278.0
+margin_bottom = 633.0
 theme = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "Inventory

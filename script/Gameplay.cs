@@ -58,7 +58,7 @@ public class Gameplay : Node2D {
         }
     }
     public void UpdateFromGameState() {
-        InventoryText.BbcodeText = "Inventory\n\n" + string.Join("\n",
+        InventoryText.BbcodeText = $"Day {Symbols.DigitBB(GameState.RoundNumber)}\n===============\nInventory:\n\n" + string.Join("\n",
             GameState.Inventory.Where(kv => kv.Value > 0).Select(ReprItemStack));
         RollButtonText.BbcodeText = Symbols.CenterBB("Roll " + Symbols.ImgBB(GameState.Dices[GameState.DiceIdToRoll].Name));
         for (int diceId = 0; diceId < GameState.Dices.Length; ++diceId) {
@@ -97,16 +97,14 @@ public class Gameplay : Node2D {
                             button.Disabled = true;
                     }
                 }
+                itemId += 1;
             }
         }
     }
     void FacetButtonClick(int diceId, int facetId) {
-        if (currentSelectedDiceId == diceId) {
-            if (currentSelectedFacetId == facetId) {
-                currentSelectedFacetId = -1;
-            } else {
-                currentSelectedFacetId = facetId;
-            }
+        if (currentSelectedDiceId == diceId && currentSelectedFacetId == facetId) {
+            currentSelectedFacetId = -1;
+            currentSelectedDiceId = -1;
         } else {
             currentSelectedDiceId = diceId;
             currentSelectedFacetId = facetId;
