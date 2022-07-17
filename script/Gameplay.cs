@@ -52,8 +52,9 @@ public class Gameplay : Node2D {
     public void UpdateFromGameState() {
         RenderInventory(0);
         RollButtonText.BbcodeText = Symbols.CenterBB("Roll " + Symbols.ImgBB(GameState.Dices[GameState.DiceIdToRoll].Name));
+        Dictionary<string, int> possibleProducts = new Dictionary<string, int>();
         for (int diceId = 0; diceId < GameState.Dices.Length; ++diceId) {
-            Dice dice =  GameState.Dices[diceId];
+            Dice dice = GameState.Dices[diceId];
             DiceNameLabels[diceId].BbcodeText = Symbols.CenterBB(dice.ToDescription());
             for (int j = 0; j < dice.Facets.Length; ++j) {
                 DiceFacet facet = dice.Facets[j];
@@ -62,7 +63,14 @@ public class Gameplay : Node2D {
                     DiceButtons[diceId][j].GrabClickFocus();
                 else
                     DiceButtons[diceId][j].ReleaseFocus();
+                if (facet is DiceFacetConvert facetConvert) {
+                    foreach (KeyValuePair<string, int> prod in facetConvert.Products)
+                        possibleProducts[prod.Key] = 1;
+                }
             }
+        }
+        for (int diceId = 0; diceId < GameState.Dices.Length; ++diceId) {
+            Dice dice = GameState.Dices[diceId];
             foreach (Node node in DiceUpgrades[diceId].GetChildren()) {
                 DiceUpgrades[diceId].RemoveChild(node);
             }
@@ -71,7 +79,7 @@ public class Gameplay : Node2D {
                 if (dice.Name == facet.Type) {
                     bool hideForNow = false;
                     foreach (KeyValuePair<string, int> kv in facet.Prices) {
-                        if (!GameState.Inventory.ContainsKey(kv.Key)) {
+                        if (!GameState.Inventory.ContainsKey(kv.Key) && !possibleProducts.ContainsKey(kv.Key)) {
                             hideForNow = true;
                             break;
                         }
@@ -347,5 +355,8 @@ public class Gameplay : Node2D {
             sb.Append("\n");
         }
         InventoryText.BbcodeText = sb.ToString();
+    }
+    void OnBackButtonPressed() {
+        GetTree().ChangeScene("res://Title.tscn");
     }
 }

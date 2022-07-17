@@ -1,13 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://DiceLayoutButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://font/slkscr.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://theme/theme.tres" type="Theme" id=3]
 [ext_resource path="res://script/DiceLayoutWithPrice.cs" type="Script" id=4]
-
-[sub_resource type="DynamicFont" id=1]
-size = 20
-font_data = ExtResource( 2 )
 
 [node name="DiceLayoutWithPrice" type="HBoxContainer"]
 script = ExtResource( 4 )
@@ -27,7 +22,6 @@ margin_bottom = 31.0
 rect_min_size = Vector2( 110, 0 )
 mouse_filter = 1
 theme = ExtResource( 3 )
-custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center][img=24%]res://texture/electric.png[/img][img=24%]res://texture/electric.png[/img][/center]"
 text = "[center][img=24%]res://texture/electric.png[/img][img=24%]res://texture/electric.png[/img][/center]"
