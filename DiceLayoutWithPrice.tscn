@@ -24,6 +24,7 @@ mouse_filter = 1
 theme = ExtResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[center][img=24%]res://texture/electric.png[/img][img=24%]res://texture/electric.png[/img][/center]"
+text = "[center][img=24%]res://texture/electric.png[/img][img=24%]res://texture/electric.png[/img][/center]"
 scroll_active = false
 
 [node name="Button" parent="." instance=ExtResource( 1 )]

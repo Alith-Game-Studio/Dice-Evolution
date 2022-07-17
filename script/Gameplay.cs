@@ -17,8 +17,7 @@ public class Gameplay : Node2D {
     public RichTextLabel RollButtonText { get; set; }
     public AudioStreamPlayer TickPlayer { get; set; }
 
-    int currentSelectedDiceId = -1;
-    int currentSelectedFacetId = -1;
+    int currentSelectedItemId = -1;
     public override void _Ready() {
         DiceLayoutWithPricePrefab = GD.Load<PackedScene>("res://DiceLayoutWithPrice.tscn");
         InventoryText = GetNode<RichTextLabel>("InventoryText");
@@ -61,10 +60,10 @@ public class Gameplay : Node2D {
             for (int j = 0; j < dice.Facets.Length; ++j) {
                 DiceFacet facet = dice.Facets[j];
                 DiceButtonLabels[diceId][j].BbcodeText = Symbols.CenterBB(facet.ToDescription());
-                if (diceId == currentSelectedDiceId && j == currentSelectedFacetId)
-                    DiceButtons[diceId][j].GrabClickFocus();
+                if (currentSelectedItemId >= 0 && Shop.Items[currentSelectedItemId].Type == dice.Name)
+                    DiceButtons[diceId][j].Disabled = false;
                 else
-                    DiceButtons[diceId][j].ReleaseFocus();
+                    DiceButtons[diceId][j].Disabled = true;
                 if (facet is DiceFacetConvert facetConvert) {
                     foreach (KeyValuePair<string, int> prod in facetConvert.Products)
                         possibleProducts[prod.Key] = 1;
@@ -91,11 +90,16 @@ public class Gameplay : Node2D {
                         DiceUpgrades[diceId].AddChild(node);
                         Button button = node.Initialize(facet);
                         button.Connect("pressed", this, "UpgradeButtonPressed", new Godot.Collections.Array() { diceId, itemId });
-                        button.FocusMode = Control.FocusModeEnum.None;
-                        if (currentSelectedDiceId != -1)
-                            button.Disabled = !Affordable(facet);
-                        else
+                        button.FocusMode = Control.FocusModeEnum.Click;
+                        if (!Affordable(diceId, facet)) {
                             button.Disabled = true;
+                            button.FocusMode = Control.FocusModeEnum.None;
+                            if (currentSelectedItemId == itemId)
+                                currentSelectedItemId = -1;
+                        } else {
+                            if (currentSelectedItemId == itemId)
+                                button.GrabFocus();
+                        }
                     }
                 }
                 itemId += 1;
@@ -104,42 +108,36 @@ public class Gameplay : Node2D {
     }
     void FacetButtonClick(int diceId, int facetId) {
         GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
-        if (currentSelectedDiceId == diceId && currentSelectedFacetId == facetId) {
-            currentSelectedFacetId = -1;
-            currentSelectedDiceId = -1;
-        } else {
-            currentSelectedDiceId = diceId;
-            currentSelectedFacetId = facetId;
-        }
-        UpdateFromGameState();
+        TryUpgrade(diceId, facetId);
     }
     void UpgradeButtonPressed(int diceId, int itemId) {
         GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
-        TryUpgrade(itemId);
+        if (itemId != currentSelectedItemId) {
+            currentSelectedItemId = itemId;
+        } else {
+            currentSelectedItemId = -1;
+        }
+        UpdateFromGameState();
     }
-    bool Affordable(DiceFacet facet) {
-        return facet.Type == GameState.Dices[currentSelectedDiceId].Name &&
+    bool Affordable(int diceId, DiceFacet facet) {
+        return facet.Type == GameState.Dices[diceId].Name &&
             facet.Prices.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
     }
-    void TryUpgrade(int itemId) {
+    void TryUpgrade(int diceId, int facetId) {
         if (!CanOperateNow)
             return;
         // GD.Print("TryUpgrade");
-        if (
-            currentSelectedDiceId     == -1 ||
-            currentSelectedFacetId    == -1
-        ) 
+        if (currentSelectedItemId == -1) 
             return;
-        DiceFacet facet = Shop.Items[itemId];
-        if (Affordable(facet)) {
-            GameState.Dices[currentSelectedDiceId].Facets[currentSelectedFacetId] = facet;
+        DiceFacet facet = Shop.Items[currentSelectedItemId];
+        if (Affordable(diceId, facet)) {
+            GameState.Dices[diceId].Facets[facetId] = facet;
             IsFacetBlinking = true;
             BlinkAge = 0;
             BlinkStage = 1;
-            BlinkingDiceI = currentSelectedDiceId;
-            BlinkingFaceI = currentSelectedFacetId;
-            currentSelectedDiceId = -1;
-            currentSelectedFacetId = -1;
+            BlinkingDiceI = diceId;
+            BlinkingFaceI = facetId;
+            currentSelectedItemId = -1;
             Transact(facet.Prices, new Dictionary<string, int> { });
         } else {
             GD.Print("cannot afford");

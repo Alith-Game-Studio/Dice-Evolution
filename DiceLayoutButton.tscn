@@ -6,8 +6,9 @@
 margin_right = 100.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 150, 36 )
-focus_mode = 1
+focus_mode = 0
 theme = ExtResource( 2 )
+enabled_focus_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -27,4 +28,5 @@ mouse_filter = 1
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center][img=24%]res://texture/electric.png[/img][img=24%]res://texture/electric.png[/img][img=24%]res://texture/right_arrow.png[/img][img=24%]res://texture/copper.png[/img][img=24%]res://texture/triangle1.png[/img][/center]"
+text = "[center][img=24%]res://texture/electric.png[/img][img=24%]res://texture/electric.png[/img][img=24%]res://texture/right_arrow.png[/img][img=24%]res://texture/copper.png[/img][img=24%]res://texture/triangle1.png[/img][/center]"
 scroll_active = false

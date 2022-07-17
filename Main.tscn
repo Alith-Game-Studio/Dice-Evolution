@@ -88,7 +88,7 @@ margin_bottom = 43.0
 mouse_filter = 1
 bbcode_enabled = true
 bbcode_text = "[center]Roll[/center]"
-text = "Roll"
+text = "[center]Roll[/center]"
 scroll_active = false
 __meta__ = {
 "_edit_lock_": true

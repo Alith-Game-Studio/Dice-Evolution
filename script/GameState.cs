@@ -8,7 +8,8 @@ public class GameState : Node
     public static Dice[] Dices { get; private set; }
     public static int DiceIdToRoll { get; set; }
     public static int RoundNumber { get; set; }
-    static GameState() {
+    public static void Reset() {
+
         Inventory = new Dictionary<string, int>() {
             {"mana", 10},
             {"hp", 5 },

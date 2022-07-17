@@ -3,6 +3,7 @@ using System;
 
 public class Title : Node2D {
     void OnButtonStartPressed() {
+        GameState.Reset();
         GetTree().ChangeScene("res://Main.tscn");
         GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
     }
