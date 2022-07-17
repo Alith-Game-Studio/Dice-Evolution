@@ -42,7 +42,7 @@ theme = ExtResource( 2 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center][img=70%]res://texture/mana.png[/img] Dice Evolution [img=70%]res://texture/mana.png[/img][/center]"
-text = "[center][img=70%]res://texture/mana.png[/img] Dice Evolution [img=70%]res://texture/mana.png[/img][/center]"
+text = " Dice Evolution "
 scroll_active = false
 
 [node name="Label2" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
@@ -54,7 +54,7 @@ theme = ExtResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[right]A game by Daniel Chin & Alith[/right]"
-text = "[right]A game by Daniel Chin & Alith[/right]"
+text = "A game by Daniel Chin & Alith"
 scroll_active = false
 
 [node name="Label3" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
@@ -71,8 +71,8 @@ bbcode_text = "The game cannot be made without the following resources:
 3. [url=https://freesound.org/people/deleted_user_7146007/sounds/383435/]Click sound 1[/url], [url=https://freesound.org/people/Ranner/sounds/487588/]click sound 2[/url] from FreeSound "
 text = "The game cannot be made without the following resources:
 1. Godot Engine
-2. [url=https://fonts.google.com/specimen/Just+Another+Hand#standard-styles]Just Another Hand Font[/url], used under Apache 2.0 license
-3. [url=https://freesound.org/people/deleted_user_7146007/sounds/383435/]Click sound 1[/url], [url=https://freesound.org/people/Ranner/sounds/487588/]click sound 2[/url] from FreeSound "
+2. Just Another Hand Font, used under Apache 2.0 license
+3. Click sound 1, click sound 2 from FreeSound "
 scroll_active = false
 
 [node name="BackButton" type="TextureButton" parent="."]

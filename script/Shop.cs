@@ -3,11 +3,6 @@ using System.Collections.Generic;
 
 public class Shop {
     public static DiceFacet[] Items;
-    static string[] ProcessString(string str) {
-        if (str == "")
-            return new string[] { };
-        return str.Split('|');
-    }
     static Shop() {
         File f = new File();
         f.Open("Shop.csv", File.ModeFlags.Read);
@@ -18,13 +13,9 @@ public class Shop {
             if (content == "")
                 continue;
             string[] tokens = content.Split('?');
-            if (tokens[0] == "PLACE")
+            if (tokens[0] == "PLACE" || tokens[0].Contains("|"))
                 continue;
-            GD.Print(content);
-            if (tokens[4] != "")
-                itemList.Add(new DiceFacetCall(ProcessString(tokens[2]), tokens[4], ProcessString(tokens[1]), tokens[0]));
-            else
-                itemList.Add(new DiceFacetConvert(ProcessString(tokens[2]), ProcessString(tokens[3]), ProcessString(tokens[1]), tokens[0]));
+            itemList.Add(GameState.CsvLineToFacet(line));
         }
         Items = itemList.ToArray();
     }

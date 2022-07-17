@@ -28,5 +28,4 @@ mouse_filter = 1
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center][img=24%]res://texture/electric.png[/img][img=24%]res://texture/electric.png[/img][img=24%]res://texture/right_arrow.png[/img][img=24%]res://texture/copper.png[/img][img=24%]res://texture/triangle1.png[/img][/center]"
-text = "[center][img=24%]res://texture/electric.png[/img][img=24%]res://texture/electric.png[/img][img=24%]res://texture/right_arrow.png[/img][img=24%]res://texture/copper.png[/img][img=24%]res://texture/triangle1.png[/img][/center]"
 scroll_active = false
