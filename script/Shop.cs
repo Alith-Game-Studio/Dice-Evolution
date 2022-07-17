@@ -15,7 +15,6 @@ public class Shop {
             string[] tokens = content.Split('?');
             if (tokens[0] == "PLACE" || tokens[0].Contains("|"))
                 continue;
-            GD.Print(content);
             itemList.Add(GameState.CsvLineToFacet(line));
         }
         Items = itemList.ToArray();

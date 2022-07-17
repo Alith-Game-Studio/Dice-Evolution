@@ -17,7 +17,7 @@ public class GameState : Node
     public static DiceFacet CsvLineToFacet(string line) {
         string content = line.Replace('\t', '?').StripEdges();
         string[] tokens = content.Split('?');
-        GD.Print(content);
+        // GD.Print(content);
         if (tokens[4] != "")
             return new DiceFacetCall(ProcessString(tokens[2]), tokens[4], ProcessString(tokens[1]), tokens[0]);
         else
