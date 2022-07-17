@@ -121,6 +121,9 @@ public class Gameplay : Node2D {
         DiceFacet facet = Shop.Items[itemId];
         if (Affordable(facet)) {
             GameState.Dices[currentSelectedDiceId].Facets[currentSelectedFacetId] = facet;
+            IsFacetBlinking = true;
+            BlinkAge = 0;
+            BlinkStage = 1;
             BlinkingDiceI = currentSelectedDiceId;
             BlinkingFaceI = currentSelectedFacetId;
             currentSelectedDiceId = -1;
@@ -142,8 +145,8 @@ public class Gameplay : Node2D {
     private float BlinkDuration;
     const float BLINK_INIT_VELOCITY = 18;
     const float BLINK_DURATION_MEAN = 1;
-    const float BLINK_SELF_INTERVAL = .2f;
-    const float BLINK_SELF_DURATION = 0f;
+    const float BLINK_SELF_INTERVAL = .3f;
+    const float BLINK_SELF_DURATION = 1f;
     Color BLINK_MODULATE = new Color(255, 200, 0);
     private void AnimateFacet(float delta) {
         if (IsFacetBlinking) {
@@ -161,6 +164,7 @@ public class Gameplay : Node2D {
                 if (BlinkAge >= BlinkDuration) {
                     BlinkStage = 1;
                     BlinkAge = 0;
+                    OnFacetDecided(BlinkingDiceI, BlinkingFaceI);
                 }
             } else if (BlinkStage == 1) {
                 if (BlinkAge < BLINK_SELF_DURATION) {
@@ -172,7 +176,6 @@ public class Gameplay : Node2D {
                 } else {                    
                     IsFacetBlinking = false;
                     DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = BLINK_MODULATE;
-                    OnBlinkFinish(BlinkingDiceI, BlinkingFaceI);
                 }
             }
         }
@@ -201,10 +204,15 @@ public class Gameplay : Node2D {
             BlinkDuration = BLINK_DURATION_MEAN + (float) (
                 (rng.NextDouble() - .5) * .4
             );
+            for (int j = 0; j < GameState.Dices.Length; j ++) {
+                for (int i = 0; i < 6; i ++) {
+                    DiceButtons[j][i].Modulate = Colors.White;
+                }
+            }
         }
     }
 
-    public void OnBlinkFinish(int diceI, int faceI) {
+    public void OnFacetDecided(int diceI, int faceI) {
         DiceFacet facet = GameState.Dices[diceI].Facets[faceI];
         bool affordable = facet.Ingredients.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
         Dictionary<string, int> ToReceive = new Dictionary<string, int> { };
@@ -328,7 +336,9 @@ public class Gameplay : Node2D {
                     sb.Append(Symbols.DigitBB(previousValue));
                     sb.Append(Symbols.ImgBB(invItem.Key));
                     if (DeltaMode == 2 && deltaValue != 0) {                    
+                        sb.Append(" ");
                         sb.Append(Symbols.ImgBB(deltaValue > 0 ? "+" : "-", 12));
+                        sb.Append(" ");
                         sb.Append(Symbols.DigitBB(Math.Abs(deltaValue)));
                         sb.Append(Symbols.ImgBB(invItem.Key));
                     }
