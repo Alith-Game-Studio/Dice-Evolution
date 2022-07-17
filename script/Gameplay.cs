@@ -308,7 +308,7 @@ public class Gameplay : Node2D {
     private bool IsInventoryBlinking = false;
     private float InventoryBlinkAge;
     const float BLINK_INVENTORY_INTERVAL = .3f;
-    const float BLINK_INVENTORY_DURATION = 1f;
+    const float BLINK_INVENTORY_DURATION = 1.5f;
     public void Transact(Dictionary<string, int> spending, Dictionary<string, int> receiving) {
         TransactDelta = new Dictionary<string, int> { };
         foreach (KeyValuePair<string, int> req in spending) {
