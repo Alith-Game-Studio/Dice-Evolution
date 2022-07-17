@@ -15,7 +15,7 @@ public class Dice {
     public string ToDescription() {
         StringBuilder sb = new StringBuilder();
         sb.Append("Dice ");
-        sb.Append(Symbols.ImgBB(Name, 28));
+        sb.Append(Symbols.ImgBB(Name, 36));
         return sb.ToString();
     }
 }
