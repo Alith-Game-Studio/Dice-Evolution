@@ -302,6 +302,9 @@ public class Gameplay : Node2D {
         //     2: Show previous inv +- delta
         // }
         StringBuilder sb = new StringBuilder();
+        sb.Append("Day ");
+        sb.Append(Symbols.DigitBB(GameState.RoundNumber));
+        sb.Append("\n===============\n");
         sb.Append("Inventory \n\n");
         foreach (KeyValuePair<string, int> invItem in GameState.Inventory) {
             if (DeltaMode == 0) {
