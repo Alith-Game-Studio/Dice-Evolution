@@ -71,6 +71,9 @@ public class Gameplay : Node2D {
                         possibleProducts[prod.Key] = 1;
                 }
             }
+            DiceLayouts[diceId].Modulate = (
+                dice.IsRevealed ? Colors.White : Colors.Black
+            );
         }
         for (int diceId = 0; diceId < GameState.Dices.Length; ++diceId) {
             Dice dice = GameState.Dices[diceId];
@@ -245,6 +248,7 @@ public class Gameplay : Node2D {
                 for (int i = 0; i < GameState.Dices.Length; ++i) {
                     if (GameState.Dices[i].Name == facetCall.Dice) {
                         GameState.DiceIdToRoll = i;
+                        GameState.Dices[i].IsRevealed = true;
                         break;
                     }
                 }

@@ -39,18 +39,20 @@ public class GameState : Node
             new DiceFacetConvert(new string[] {"mana"}, new string[]{"air"}, null, "work"),
             new DiceFacetConvert(new string[] {"mana"}, new string[]{"air"}, null, "work"),
         });
+        Dice diceRoot = new Dice("root", new DiceFacet[] {
+            new DiceFacetCall(new string[] { }, "work", null, "root"),
+            new DiceFacetCall(new string[] { }, "play", null, "root"),
+            new DiceFacetCall(new string[] { }, "fight", null, "root"),
+            new DiceFacetCall(new string[] { }, "work", null, "root"),
+            new DiceFacetCall(new string[] { }, "play", null, "root"),
+            new DiceFacetCall(new string[] { }, "fight", null, "root"),
+        });
+        diceRoot.IsRevealed = true;
         Dices = new Dice[] {
-            new Dice("root", new DiceFacet[] {
-                new DiceFacetCall(new string[] { }, "work", null, "root"),
-                new DiceFacetCall(new string[] { }, "play", null, "root"),
-                new DiceFacetCall(new string[] { }, "fight", null, "root"),
-                new DiceFacetCall(new string[] { }, "work", null, "root"),
-                new DiceFacetCall(new string[] { }, "play", null, "root"),
-                new DiceFacetCall(new string[] { }, "fight", null, "root"),
-            }),
+            diceRoot, 
             diceWork,
             dicePlay,
-            diceFight,
+            diceFight, 
         };
     }
 }

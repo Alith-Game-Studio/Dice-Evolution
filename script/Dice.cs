@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 public class Dice {
     public string Name { get; private set; }
     public DiceFacet[] Facets { get; private set; }
+    public bool IsRevealed { get; set; }
 
     public Dice(string name, DiceFacet[] facets) {
         Name = name;
         Facets = facets;
+        IsRevealed = false;
     }
     public string ToDescription() {
         StringBuilder sb = new StringBuilder();
