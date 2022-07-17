@@ -18,10 +18,10 @@ def main():
             for y in range(img.height):
                 r, g, b, a = pixels[x, y]
                 pixels[x, y] = (
-                    round(r * .5), 
-                    round(g * .5), 
-                    round(b * .5), 
-					a
+                    r, 
+                    g, 
+                    b, 
+					round(a * .4)
                 )
         img.save(filename[:-4] + '_gray.png')
 

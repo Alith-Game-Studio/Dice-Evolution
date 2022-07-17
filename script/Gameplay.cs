@@ -243,4 +243,8 @@ public class Gameplay : Node2D {
         CanOperateNow = true;
         RollButton.Visible = true;
     }
+
+    void OnBackButtonPressed() {
+        GetTree().ChangeScene("res://Title.tscn");
+    }
 }
