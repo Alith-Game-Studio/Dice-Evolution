@@ -1,0 +1,23 @@
+PLACE	PRICE	INGRADIENT	PRODUCTS	CALL
+work	water	mana$2	fire$2	
+work	water$2	mana$2	earth$2	
+work	water$3	mana$2	air$2	
+fight	elixir|earth	fire	water	
+fight	elixir|fire	fire	air	
+fight	water|water|fire	fire|fire	copper	
+work	water|water|earth	mana|earth|earth	copper	
+play	water|water|air		mana$4	
+root	copper|copper|fire	mana		fight
+fight	copper|copper|water	copper	elixir	
+play	elixir|elixir|air	elixir	hp	
+work	copper|copper|earth	mana|mana|copper|copper	mushroom	
+root	mushroom|mushroom|fire	mana		work
+root	skeleton|skeleton|air	mana		play
+fight	elixir|elixir|fire	elixir	skeleton	
+fight	skeleton|skeleton|copper	skeleton|elixir	key	
+work	mushroom|mushroom|air	mushroom|mushroom|copper|copper	key	
+work	key|key|earth	mana$4	mushroom	
+fight	key|key|fire	air	elixir	
+play	key|key|air		mana$6	
+work	mushroom|mushroom|skeleton|skeleton	mana$4|elixir	bomb	
+fight	bomb|bomb|air	bomb	key	

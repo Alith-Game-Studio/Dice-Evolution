@@ -1,145 +1,31 @@
-﻿using System;
+﻿using Godot;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public class Shop {
     public static DiceFacet[] Items;
+    static string[] ProcessString(string str) {
+        if (str == "")
+            return new string[] { };
+        return str.Split('|');
+    }
     static Shop() {
-        Items = new DiceFacet[] {
-            new DiceFacetConvert(
-                new string[] {"mana", "mana"}, 
-                new string[] {"fire", "fire"}, 
-                new string[]{"water"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mana", "mana"}, 
-                new string[] {"earth", "earth"}, 
-                new string[]{"water", "water"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] { "mana", "earth", "copper"},
-                new string[] { "air", "air"},
-                new string[] { "water", "water"},
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] { "elixir" },
-                new string[] { "water" },
-                new string[] { "fire" },
-                "fight"
-            ),
-            new DiceFacetConvert(
-                new string[] { "elixir", "fire" },
-                new string[] { "air" },
-                new string[] { "fire" },
-                "fight"
-            ),
-            new DiceFacetConvert(
-                new string[] {"fire", "fire"}, 
-                new string[] {"copper"}, 
-                new string[]{"water", "water", "fire"}, 
-                "fight"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mana", "earth", "earth"}, 
-                new string[] {"copper"}, 
-                new string[]{"water", "water", "earth"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] { }, 
-                new string[] {"mana$2"}, 
-                new string[]{"water", "water", "air"}, 
-                "play"
-            ),
-            new DiceFacetCall(
-                new string[] { }, 
-                "fight", 
-                new string[]{"copper", "copper", "fire"}, 
-                "root"
-            ),
-            new DiceFacetConvert(
-                new string[] {"copper"}, 
-                new string[] {"elixir"}, 
-                new string[]{"copper", "copper", "water"}, 
-                "fight"
-            ),
-            new DiceFacetConvert(
-                new string[] {"elixir"}, 
-                new string[] {"hp", "hp"}, 
-                new string[]{"elixir", "elixir", "air"}, 
-                "play"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mana", "mana", "copper", "copper"}, 
-                new string[] {"mushroom"}, 
-                new string[]{"copper", "copper", "earth"}, 
-                "work"
-            ),
-            new DiceFacetCall(
-                new string[] { }, 
-                "work", 
-                new string[]{"mushroom", "mushroom", "fire"}, 
-                "root"
-            ),
-            new DiceFacetCall(
-                new string[] { },
-                "play",
-                new string[]{ "skeleton", "skeleton", "air"},
-                "root"
-            ),
-            new DiceFacetConvert(
-                new string[] {"elixir"}, 
-                new string[] {"skeleton"}, 
-                new string[]{"elixir", "elixir", "fire"}, 
-                "fight"
-            ),
-            new DiceFacetConvert(
-                new string[] {"skeleton", "elixir"}, 
-                new string[] {"key"}, 
-                new string[]{"skeleton", "skeleton", "copper"}, 
-                "fight"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mushroom", "mushroom", "copper", "copper"}, 
-                new string[] {"key"}, 
-                new string[]{"mushroom", "mushroom", "air"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mana$4"}, 
-                new string[] {"mushroom"}, 
-                new string[]{"key", "key", "earth"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] {"air"}, 
-                new string[] {"elixir"}, 
-                new string[]{"key", "key", "fire"}, 
-                "fight"
-            ),
-            new DiceFacetConvert(
-                new string[] { }, 
-                new string[] {"mana$4"}, 
-                new string[]{"key", "key", "air"}, 
-                "play"
-            ),
-            new DiceFacetConvert(
-                new string[] {"mana$4", "elixir"}, 
-                new string[] {"bomb"}, 
-                new string[]{"mushroom", "mushroom", "skeleton", "skeleton"}, 
-                "work"
-            ),
-            new DiceFacetConvert(
-                new string[] {"bomb"}, 
-                new string[] {"key"}, 
-                new string[]{"bomb", "bomb", "air"}, 
-                "fight"
-            ),
-        };
+        File f = new File();
+        f.Open("Shop.csv", File.ModeFlags.Read);
+        string[] lines = f.GetAsText().Split('\n');
+        List<DiceFacet> itemList = new List<DiceFacet>();
+        foreach (string line in lines) {
+            string content = line.Replace('\t', '?').StripEdges();
+            if (content == "")
+                continue;
+            string[] tokens = content.Split('?');
+            if (tokens[0] == "PLACE")
+                continue;
+            GD.Print(content);
+            if (tokens[4] != "")
+                itemList.Add(new DiceFacetCall(ProcessString(tokens[2]), tokens[4], ProcessString(tokens[1]), tokens[0]));
+            else
+                itemList.Add(new DiceFacetConvert(ProcessString(tokens[2]), ProcessString(tokens[3]), ProcessString(tokens[1]), tokens[0]));
+        }
+        Items = itemList.ToArray();
     }
 }
