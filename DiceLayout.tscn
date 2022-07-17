@@ -69,8 +69,8 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 theme = ExtResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[center]Change face[/center]"
-text = "Change face"
+bbcode_text = "[center]Price   /   New Face   [/center]"
+text = "Price   /   New Face   "
 scroll_active = false
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer2"]
