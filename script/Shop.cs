@@ -21,6 +21,24 @@ public class Shop {
                 "work"
             ),
             new DiceFacetConvert(
+                new string[] { "mana", "earth", "copper"},
+                new string[] { "air", "air"},
+                new string[] { "water", "water"},
+                "work"
+            ),
+            new DiceFacetConvert(
+                new string[] { "elixir" },
+                new string[] { "water" },
+                new string[] { "fire" },
+                "fight"
+            ),
+            new DiceFacetConvert(
+                new string[] { "elixir", "fire" },
+                new string[] { "air" },
+                new string[] { "fire" },
+                "fight"
+            ),
+            new DiceFacetConvert(
                 new string[] {"fire", "fire"}, 
                 new string[] {"copper"}, 
                 new string[]{"water", "water", "fire"}, 
@@ -34,7 +52,7 @@ public class Shop {
             ),
             new DiceFacetConvert(
                 new string[] { }, 
-                new string[] {"mana$4"}, 
+                new string[] {"mana$2"}, 
                 new string[]{"water", "water", "air"}, 
                 "play"
             ),
@@ -66,6 +84,12 @@ public class Shop {
                 new string[] { }, 
                 "work", 
                 new string[]{"mushroom", "mushroom", "fire"}, 
+                "root"
+            ),
+            new DiceFacetCall(
+                new string[] { },
+                "play",
+                new string[]{ "skeleton", "skeleton", "air"},
                 "root"
             ),
             new DiceFacetConvert(
@@ -100,7 +124,7 @@ public class Shop {
             ),
             new DiceFacetConvert(
                 new string[] { }, 
-                new string[] {"mana$8"}, 
+                new string[] {"mana$4"}, 
                 new string[]{"key", "key", "air"}, 
                 "play"
             ),
