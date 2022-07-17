@@ -25,11 +25,11 @@ public class GameState : Node
         });
         Dice dicePlay = new Dice("play", new DiceFacet[] {
             new DiceFacetConvert(new string[] { }, new string[] {"mana$1"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana$3"}, null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"mana$1"}, null, "play"),
             new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
-            new DiceFacetConvert(new string[] { }, new string[] {"mana$3"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$1"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$1"}, null, "play"),
+            new DiceFacetConvert(new string[] { }, new string[] {"mana$2"}, null, "play"),
         });
         Dice diceWork = new Dice("work", new DiceFacet[] {
             new DiceFacetConvert(new string[] {"mana"}, new string[]{"fire"}, null, "work"),
