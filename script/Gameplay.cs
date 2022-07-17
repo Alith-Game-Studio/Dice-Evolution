@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class Gameplay : Node2D {
     public List<HBoxContainer> DiceLayouts { get; set; }
@@ -48,17 +49,8 @@ public class Gameplay : Node2D {
         }
         UpdateFromGameState();
     }
-    private string ReprItemStack(KeyValuePair<string, int> kv) {
-        if (kv.Value < 8) {
-            return string.Concat(Enumerable.Repeat(
-                Symbols.ImgBB(kv.Key), kv.Value
-            ));
-        } else {
-            return $"{Symbols.DigitBB(kv.Value)}{Symbols.ImgBB(kv.Key)}";
-        }
-    }
     public void UpdateFromGameState() {
-        RenderInventory();
+        RenderInventory(0);
         RollButtonText.BbcodeText = Symbols.CenterBB("Roll " + Symbols.ImgBB(GameState.Dices[GameState.DiceIdToRoll].Name));
         for (int diceId = 0; diceId < GameState.Dices.Length; ++diceId) {
             Dice dice =  GameState.Dices[diceId];
@@ -151,7 +143,7 @@ public class Gameplay : Node2D {
     const float BLINK_INIT_VELOCITY = 18;
     const float BLINK_DURATION_MEAN = 1;
     const float BLINK_SELF_INTERVAL = .2f;
-    const float BLINK_SELF_DURATION = .5f;
+    const float BLINK_SELF_DURATION = 0f;
     Color BLINK_MODULATE = new Color(255, 200, 0);
     private void AnimateFacet(float delta) {
         if (IsFacetBlinking) {
@@ -243,25 +235,30 @@ public class Gameplay : Node2D {
         RollButton.Visible = true;
     }
 
-    private Dictionary<string, int> TransactSpending;
-    private Dictionary<string, int> TransactReceiving;
+    private Dictionary<string, int> TransactDelta;
     private bool IsInventoryBlinking = false;
     private float InventoryBlinkAge;
-    const float BLINK_INVENTORY_INTERVAL = .2f;
-    const float BLINK_INVENTORY_DURATION = .5f;
+    const float BLINK_INVENTORY_INTERVAL = .3f;
+    const float BLINK_INVENTORY_DURATION = 1f;
     public void Transact(Dictionary<string, int> spending, Dictionary<string, int> receiving) {
-        foreach (KeyValuePair<string, int> req in spent) {
-            GameState.Inventory[req.Key] -= req.Value;
-        }
-        foreach (KeyValuePair<string, int> req in got) {
-            if (GameState.Inventory.ContainsKey(req.Key)) {
-                GameState.Inventory[req.Key] += req.Value;
-            } else {
-                GameState.Inventory[req.Key] = req.Value;
+        TransactDelta = new Dictionary<string, int> { };
+        foreach (KeyValuePair<string, int> req in spending) {
+            if (!TransactDelta.ContainsKey(req.Key)) {
+                TransactDelta[req.Key] = 0;
             }
+            GameState.Inventory[req.Key] -= req.Value;
+            TransactDelta      [req.Key] -= req.Value;
         }
-        TransactSpending = spending;
-        TransactReceiving = receiving;
+        foreach (KeyValuePair<string, int> req in receiving) {
+            if (! GameState.Inventory.ContainsKey(req.Key)) {
+                GameState.Inventory[req.Key] = 0;
+            }
+            if (!TransactDelta.ContainsKey(req.Key)) {
+                TransactDelta[req.Key] = 0;
+            }
+            GameState.Inventory[req.Key] += req.Value;
+            TransactDelta      [req.Key] += req.Value;
+        }
         IsInventoryBlinking = true;
         InventoryBlinkAge = 0;
     }
@@ -270,19 +267,75 @@ public class Gameplay : Node2D {
             InventoryBlinkAge += delta;
             if (InventoryBlinkAge < BLINK_INVENTORY_DURATION) {
                 if (InventoryBlinkAge % BLINK_INVENTORY_INTERVAL < BLINK_INVENTORY_INTERVAL * .5) {
-                    DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = BLINK_MODULATE;
+                    RenderInventory(1);
                 } else {
-                    DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = Colors.White;
+                    RenderInventory(2);
                 }
             } else {                    
                 IsInventoryBlinking = false;
-                RenderInventory();
+                RenderInventory(0);
             }
         }
     }
 
-    public void RenderInventory(bool DoGray = false) {
-        InventoryText.BbcodeText = "Inventory\n\n" + string.Join("\n",
-        GameState.Inventory.Where(kv => kv.Value > 0).Select(ReprItemStack));    
+    const int INVENTORY_LINE_WIDTH = 8;
+    public void RenderInventory(int DeltaMode = 0) {
+        // DeltaMode {
+        //     0: Show current inv
+        //     1: Show previous inv
+        //     2: Show previous inv +- delta
+        // }
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Inventory \n\n");
+        foreach (KeyValuePair<string, int> invItem in GameState.Inventory) {
+            if (DeltaMode == 0) {
+                if (invItem.Value <= 0) {
+                    continue;
+                }
+                if (invItem.Value < INVENTORY_LINE_WIDTH) {
+                    for (int _ = 0; _ < invItem.Value; _ ++) {
+                        sb.Append(Symbols.ImgBB(invItem.Key));
+                    }
+                } else {
+                    sb.Append(Symbols.DigitBB(invItem.Value));
+                    sb.Append(Symbols.ImgBB(invItem.Key));
+                }
+            } else {
+                int deltaValue;
+                if (TransactDelta.ContainsKey(invItem.Key)) {
+                    deltaValue = TransactDelta[invItem.Key];
+                } else {
+                    deltaValue = 0;
+                }
+                int previousValue = invItem.Value - deltaValue;
+                int maxValue = Math.Max(
+                    invItem.Value, previousValue
+                );
+                if (maxValue <= 0) {
+                    continue;
+                }
+                if (maxValue < INVENTORY_LINE_WIDTH) {
+                    int n;
+                    if (DeltaMode == 1) {
+                        n = previousValue;
+                    } else {
+                        n = invItem.Value;
+                    }
+                    for (int _ = 0; _ < n; _ ++) {
+                        sb.Append(Symbols.ImgBB(invItem.Key));
+                    }
+                } else {
+                    sb.Append(Symbols.DigitBB(previousValue));
+                    sb.Append(Symbols.ImgBB(invItem.Key));
+                    if (DeltaMode == 2 && deltaValue != 0) {                    
+                        sb.Append(Symbols.ImgBB(deltaValue > 0 ? "+" : "-", 12));
+                        sb.Append(Symbols.DigitBB(Math.Abs(deltaValue)));
+                        sb.Append(Symbols.ImgBB(invItem.Key));
+                    }
+                }
+            }
+            sb.Append("\n");
+        }
+        InventoryText.BbcodeText = sb.ToString();
     }
 }
