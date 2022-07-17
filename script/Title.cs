@@ -12,7 +12,11 @@ public class Title : Node2D {
         GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
     }
     void OnButtonExitPressed() {
-        GetTree().Quit();
+        if (OS.HasFeature("HTML5")) {
+            GetNode<Button>("MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ButtonExit").Text = "Close your browser to exit.";
+        } else {
+            GetTree().Quit();
+        }
         GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
     }
 }
