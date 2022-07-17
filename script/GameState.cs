@@ -9,6 +9,7 @@ public class GameState : Node
     public static Dice[] Dices { get; private set; }
     public static int DiceIdToRoll { get; set; }
     public static int RoundNumber { get; set; }
+    public static bool DidHaveStar { get; set; }
     static string[] ProcessString(string str) {
         if (str == "")
             return new string[] { };
@@ -64,5 +65,6 @@ public class GameState : Node
             }
         }
         Dices[0].IsRevealed = true;
+        DidHaveStar = false;
     }
 }
