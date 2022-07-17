@@ -17,6 +17,7 @@ public class Gameplay : Node2D {
     public RichTextLabel RollButtonText { get; set; }
     public AudioStreamPlayer TickPlayer { get; set; }
     public LogPane MyLogPane { get; set; }
+    public Button RestartButton { get; set; }
 
     int currentSelectedItemId = -1;
     public override void _Ready() {
@@ -31,6 +32,8 @@ public class Gameplay : Node2D {
         RollButton.Connect("pressed", this, "OnRollPressed");
         TickPlayer = GetNode<AudioStreamPlayer>("TickPlayer");
         RollButtonText = RollButton.GetNode<RichTextLabel>("MarginContainer/RollTextBox");
+        RestartButton = GetNode<Button> ("RestartButton");
+        RestartButton.Hide();
         int diceId = 0;
         foreach (HBoxContainer container in GetNode<GridContainer>("HBoxContainer").GetChildren()) {
             DiceLayouts.Add(container);
@@ -243,6 +246,7 @@ public class Gameplay : Node2D {
         DiceFacet facet = GameState.Dices[diceI].Facets[faceI];
         bool affordable = facet.Ingredients.All(req => GameState.Inventory.ContainsKey(req.Key) && GameState.Inventory[req.Key] >= req.Value);
         Dictionary<string, int> ToReceive = new Dictionary<string, int> { };
+        bool didDayEnd = false;
         if (affordable) {
             if (facet is DiceFacetCall facetCall) {
                 for (int i = 0; i < GameState.Dices.Length; ++i) {
@@ -254,8 +258,7 @@ public class Gameplay : Node2D {
                 }
             } else if (facet is DiceFacetConvert diceFacetConvert) {
                 ToReceive = diceFacetConvert.Products;
-                GameState.DiceIdToRoll = 0;
-                GameState.RoundNumber ++;
+                didDayEnd = true;
             }
             Transact(facet.Ingredients, ToReceive);
             MyLogPane.Write(Symbols.ImgBB(GameState.Dices[diceI].Name));
@@ -277,11 +280,14 @@ public class Gameplay : Node2D {
                 MyLogPane.Write(" failed.");
                 MyLogPane.Flush();
             }
-            GameState.DiceIdToRoll = 0;
+            didDayEnd = true;
         }
         UpdateFromGameState();
         CanOperateNow = true;
         RollButton.Visible = true;
+        if (didDayEnd) {
+            OnDayEnd();
+        }
     }
 
     private Dictionary<string, int> TransactDelta;
@@ -404,5 +410,26 @@ public class Gameplay : Node2D {
             if (eventKey.Pressed && eventKey.Scancode == (int)KeyList.Space) {
                 OnRollPressed();
             }
+    }
+
+    public void OnDayEnd() {
+        GameState.DiceIdToRoll = 0;
+        GameState.RoundNumber ++;
+        if (
+            GameState.Inventory["hp"] <= 0 ||
+            GameState.Inventory["mana"] <= 0
+        ) {
+            if (GameState.Inventory["hp"] <= 0) {
+                MyLogPane.Write(Symbols.ImgBB("hp"));
+            } else {
+                MyLogPane.Write(Symbols.ImgBB("mana"));
+            }
+            MyLogPane.Write(" ran out. ");
+            MyLogPane.Write("Game over. ");
+            MyLogPane.Flush();
+            CanOperateNow = false;
+            RollButton.Visible = false;
+            RestartButton.Show();
+        }
     }
 }

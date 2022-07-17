@@ -41,20 +41,22 @@ custom_constants/hseparation = 20
 columns = 2
 
 [node name="DiceLayout" parent="HBoxContainer" instance=ExtResource( 2 )]
+margin_bottom = 277.0
 
 [node name="DiceLayout2" parent="HBoxContainer" instance=ExtResource( 2 )]
 margin_left = 473.0
 margin_right = 926.0
+margin_bottom = 277.0
 
 [node name="DiceLayout3" parent="HBoxContainer" instance=ExtResource( 2 )]
-margin_top = 290.0
-margin_bottom = 560.0
+margin_top = 297.0
+margin_bottom = 574.0
 
 [node name="DiceLayout4" parent="HBoxContainer" instance=ExtResource( 2 )]
 margin_left = 473.0
-margin_top = 290.0
+margin_top = 297.0
 margin_right = 926.0
-margin_bottom = 560.0
+margin_bottom = 574.0
 
 [node name="DiceLayout5" parent="HBoxContainer" instance=ExtResource( 2 )]
 visible = false
@@ -104,6 +106,15 @@ texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 5 )
 texture_hover = ExtResource( 4 )
 expand = true
+
+[node name="RestartButton" type="Button" parent="."]
+margin_left = 1058.0
+margin_top = 696.0
+margin_right = 1258.0
+margin_bottom = 746.0
+rect_min_size = Vector2( 200, 40 )
+theme = ExtResource( 1 )
+text = "Restart"
 
 [node name="TickPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
