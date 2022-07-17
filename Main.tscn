@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://DiceLayout.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://texture/menu_bar_gray.png" type="Texture" id=4]
 [ext_resource path="res://texture/menu_bar.png" type="Texture" id=5]
 [ext_resource path="res://sound/click.wav" type="AudioStream" id=6]
+[ext_resource path="res://LogPane.tscn" type="PackedScene" id=7]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -13,8 +14,8 @@ script = ExtResource( 3 )
 [node name="InventoryText" type="RichTextLabel" parent="."]
 margin_left = 80.0
 margin_top = 95.0
-margin_right = 278.0
-margin_bottom = 633.0
+margin_right = 289.0
+margin_bottom = 527.0
 theme = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "Inventory
@@ -88,7 +89,7 @@ margin_bottom = 43.0
 mouse_filter = 1
 bbcode_enabled = true
 bbcode_text = "[center]Roll[/center]"
-text = "[center]Roll[/center]"
+text = "Roll"
 scroll_active = false
 __meta__ = {
 "_edit_lock_": true
@@ -106,5 +107,11 @@ expand = true
 
 [node name="TickPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+
+[node name="LogPane" parent="." instance=ExtResource( 7 )]
+margin_left = 71.0
+margin_top = 569.0
+margin_right = 271.0
+margin_bottom = 719.0
 
 [connection signal="button_down" from="BackButton" to="." method="OnBackButtonPressed"]
