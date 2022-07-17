@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://DiceLayout.tscn" type="PackedScene" id=2]
 [ext_resource path="res://script/Gameplay.cs" type="Script" id=3]
 [ext_resource path="res://texture/menu_bar_gray.png" type="Texture" id=4]
 [ext_resource path="res://texture/menu_bar.png" type="Texture" id=5]
+[ext_resource path="res://sound/click.wav" type="AudioStream" id=6]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -102,5 +103,8 @@ texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 5 )
 texture_hover = ExtResource( 4 )
 expand = true
+
+[node name="TickPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
 
 [connection signal="button_down" from="BackButton" to="." method="OnBackButtonPressed"]

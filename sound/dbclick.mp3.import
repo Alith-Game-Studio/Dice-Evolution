@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/dbclick.mp3-24c91c759ab7f8fe6f17c918bb62d8e4.mp3str"
+
+[deps]
+
+source_file="res://sound/dbclick.mp3"
+dest_files=[ "res://.import/dbclick.mp3-24c91c759ab7f8fe6f17c918bb62d8e4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

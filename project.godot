@@ -14,6 +14,10 @@ config/name="GMTK Jam"
 run/main_scene="res://Title.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+ClickPlayer="*res://ClickPlayer.tscn"
+
 [display]
 
 window/size/width=1366

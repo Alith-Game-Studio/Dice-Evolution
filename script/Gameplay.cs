@@ -15,6 +15,7 @@ public class Gameplay : Node2D {
     Random rng = new Random();
     public Button RollButton { get; set; }
     public RichTextLabel RollButtonText { get; set; }
+    public AudioStreamPlayer TickPlayer { get; set; }
 
     int currentSelectedDiceId = -1;
     int currentSelectedFacetId = -1;
@@ -28,6 +29,7 @@ public class Gameplay : Node2D {
         DiceUpgrades = new List<VBoxContainer>();
         RollButton = GetNode<Button>("Button");
         RollButton.Connect("pressed", this, "OnRollPressed");
+        TickPlayer = GetNode<AudioStreamPlayer>("TickPlayer");
         RollButtonText = RollButton.GetNode<RichTextLabel>("MarginContainer/RollTextBox");
         int diceId = 0;
         foreach (HBoxContainer container in GetNode<GridContainer>("HBoxContainer").GetChildren()) {
@@ -101,6 +103,7 @@ public class Gameplay : Node2D {
         }
     }
     void FacetButtonClick(int diceId, int facetId) {
+        GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
         if (currentSelectedDiceId == diceId && currentSelectedFacetId == facetId) {
             currentSelectedFacetId = -1;
             currentSelectedDiceId = -1;
@@ -111,6 +114,7 @@ public class Gameplay : Node2D {
         UpdateFromGameState();
     }
     void UpgradeButtonPressed(int diceId, int itemId) {
+        GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
         TryUpgrade(itemId);
     }
     bool Affordable(DiceFacet facet) {
@@ -165,7 +169,9 @@ public class Gameplay : Node2D {
                         BlinkAge - BlinkDuration, 2
                     )
                 ) + BlinkOffset) % 6 + 6) % 6;
-                for (int i = 0; i < 6; i ++) {
+                if (DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate == Colors.White)
+                    TickPlayer.Play();
+                for (int i = 0; i < 6; i++) {
                     DiceButtons[BlinkingDiceI][i].Modulate = Colors.White;
                 }
                 DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = BLINK_MODULATE;
@@ -197,6 +203,7 @@ public class Gameplay : Node2D {
 
     public void OnRollPressed() {
         if (CanOperateNow) {
+            GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
             if (BlinkingDiceI >= 0) {
                 DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = Colors.White;
                 BlinkingDiceI = -1;
@@ -360,6 +367,7 @@ public class Gameplay : Node2D {
         InventoryText.BbcodeText = sb.ToString();
     }
     void OnBackButtonPressed() {
+        GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
         GetTree().ChangeScene("res://Title.tscn");
     }
 }
