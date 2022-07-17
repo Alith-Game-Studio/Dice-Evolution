@@ -20,7 +20,7 @@ rect_min_size = Vector2( 0, 30 )
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center]Dice 1[/center]"
-text = "Dice 1"
+text = "[center]Dice 1[/center]"
 scroll_active = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
@@ -70,7 +70,7 @@ rect_min_size = Vector2( 0, 30 )
 theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center]Change face[/center]"
-text = "Change face"
+text = "[center]Change face[/center]"
 scroll_active = false
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer2"]
