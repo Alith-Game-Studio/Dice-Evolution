@@ -154,6 +154,7 @@ public class Gameplay : Node2D {
             Transact(facet.Prices, new Dictionary<string, int> { });
             MyLogPane.Write("Face changed.");
             MyLogPane.Flush();
+            CheckZenEnding();
         } else {
             MyLogPane.Write("That face is unaffordable.");
             MyLogPane.Flush();
@@ -161,6 +162,17 @@ public class Gameplay : Node2D {
         UpdateFromGameState();
     }
 
+    private void CheckZenEnding() {
+        for (int j = 0; j < GameState.Dices.Length; j ++) {
+            for (int i = 0; i < 6; i ++) {
+                DiceFacet facet = GameState.Dices[j].Facets[i];
+                if (facet is DiceFacetConvert facetConv) {
+                    if (facetConv.Products.Count > 0) return;
+                } else return;
+            }
+        }
+        OS.Alert("There are many ways to reach Zen. Today you reached it with Alchemy. ");
+    }
     private bool CanOperateNow = true;
     private bool IsFacetBlinking = false;
     private int BlinkStage;
