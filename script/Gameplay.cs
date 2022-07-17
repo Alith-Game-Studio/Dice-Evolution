@@ -34,6 +34,7 @@ public class Gameplay : Node2D {
         RollButtonText = RollButton.GetNode<RichTextLabel>("MarginContainer/RollTextBox");
         RestartButton = GetNode<Button> ("RestartButton");
         RestartButton.Hide();
+        RestartButton.Connect("pressed", this, "OnRestartButtonPressed");
         int diceId = 0;
         foreach (HBoxContainer container in GetNode<GridContainer>("HBoxContainer").GetChildren()) {
             DiceLayouts.Add(container);
@@ -431,5 +432,11 @@ public class Gameplay : Node2D {
             RollButton.Visible = false;
             RestartButton.Show();
         }
+    }
+
+    public void OnRestartButtonPressed() {
+        GameState.Reset();
+        GetTree().ChangeScene("res://Main.tscn");
+        GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
     }
 }
