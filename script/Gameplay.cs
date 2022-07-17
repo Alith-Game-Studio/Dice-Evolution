@@ -351,7 +351,7 @@ public class Gameplay : Node2D {
     void OnInventoryStabalize() {
         if (!GameState.DidHaveStar && GameState.Inventory.ContainsKey("star")) {
             GameState.DidHaveStar = true;
-            OS.Alert("You have created a star. Consider yourself a master of alchemy, a face changer for the dice!");
+            OS.Alert($"Day {GameState.RoundNumber}. You have created a star. Consider yourself a master of alchemy, a face changer for the dice!");
         }
     }
 
