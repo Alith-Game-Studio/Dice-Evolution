@@ -1,5 +1,5 @@
 PLACE	PRICE	INGRADIENT	PRODUCTS	CALL	INITIAL_FACES
-root|work|play|fight			mana$15|hp$5|fire$3|copper$99|air$9|elixir$9|earth$6		
+root|work|play|fight			mana$15|hp$5|fire$3|copper$99|air$9|elixir$9|earth$6|fire$99		
 fight	unknown	fire	mana		1|4
 play	unknown		mana$1		0|3
 play	unknown		mana$2		2|5
@@ -43,3 +43,4 @@ root	star|gem|electric|trash
 work	star|dots				
 play	star|hp				
 fight	star|key				
+fight	bomb	elixir		work	
