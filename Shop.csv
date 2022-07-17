@@ -5,7 +5,7 @@ play	unknown		mana$1		0|3
 play	unknown		mana$2		2|5
 play	unknown				1|4
 work	unknown	mana	fire		0|1|3|4|5
-work	advanced	mana	trash		2
+work	star	mana	trash		2
 fight	fire	fire	air		
 play	water$2			fight	
 play	water$9		mana		
@@ -19,13 +19,13 @@ work	earth	mana|earth$2	copper
 work	copper	mana$2	earth$3		
 work	earth$2|copper	mana|earth$3	copper$4		
 work	copper$9	mana$2	mushroom		
-work	mana$2	mushroom|elixir	skeleton		
+work	mana$2	mana$3|mushroom|elixir	skeleton		
 play	skeleton	elixir	mana$6		
 fight	mana	fire	water		0|2|3|5
 work	mushroom	mana$4	mushroom		
 play	fire$3		mana$2		
 play	hp		mana		
-work	skeleton$2|elixir	mana$4|skeleton	bomb		
+work	skeleton$2|elixir	mana$7|skeleton	bomb		
 fight	skeleton$2	bomb	key|elixir$2		
 fight	skeleton$2	bomb	chest|mana$4		
 work	key|chest	mushroom$2	electric		
@@ -36,10 +36,10 @@ root	bomb|skeleton			fight	2|5
 play	gem|mushroom|elixir|electric		hp		
 work	gem|bomb	hp	glasses		
 play	glasses$3		hp$4		
-fight	gem|key	glasses$6	ash|glasses$6		
-play	gem|electric	ash	hp$18		
-work	gem|ash	hp$7	star		
-root	star|gem|glasses|electric								
-work	star|ash				
+fight	gem|key	glasses$6	dots|glasses$6		
+play	gem|electric	dots	hp$18		
+work	gem|dots	hp$7	star		
+root	star|gem|electric|trash								
+work	star|dots				
 play	star|hp				
 fight	star|key				
