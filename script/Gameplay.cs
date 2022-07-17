@@ -323,7 +323,7 @@ public class Gameplay : Node2D {
         if (IsInventoryBlinking) {
             InventoryBlinkAge += delta;
             if (InventoryBlinkAge < BLINK_INVENTORY_DURATION) {
-                if (InventoryBlinkAge % BLINK_INVENTORY_INTERVAL < BLINK_INVENTORY_INTERVAL * .5) {
+                if (InventoryBlinkAge % BLINK_INVENTORY_INTERVAL < BLINK_INVENTORY_INTERVAL * .2) {
                     RenderInventory(1);
                 } else {
                     RenderInventory(2);

@@ -12,10 +12,10 @@
 script = ExtResource( 3 )
 
 [node name="InventoryText" type="RichTextLabel" parent="."]
-margin_left = 80.0
-margin_top = 95.0
-margin_right = 289.0
-margin_bottom = 527.0
+margin_left = 100.0
+margin_top = 30.0
+margin_right = 309.0
+margin_bottom = 596.0
 theme = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "Inventory
@@ -121,8 +121,8 @@ stream = ExtResource( 6 )
 
 [node name="LogPane" parent="." instance=ExtResource( 7 )]
 margin_left = 71.0
-margin_top = 569.0
+margin_top = 621.0
 margin_right = 271.0
-margin_bottom = 719.0
+margin_bottom = 771.0
 
 [connection signal="button_down" from="BackButton" to="." method="OnBackButtonPressed"]
