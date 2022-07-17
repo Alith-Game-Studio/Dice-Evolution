@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://theme/theme.tres" type="Theme" id=1]
 [ext_resource path="res://DiceLayout.tscn" type="PackedScene" id=2]
@@ -7,6 +7,12 @@
 [ext_resource path="res://texture/menu_bar.png" type="Texture" id=5]
 [ext_resource path="res://sound/click.wav" type="AudioStream" id=6]
 [ext_resource path="res://LogPane.tscn" type="PackedScene" id=7]
+[ext_resource path="res://font/justanotherhand-regular.ttf" type="DynamicFontData" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+extra_spacing_char = 5
+font_data = ExtResource( 8 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -108,10 +114,10 @@ texture_hover = ExtResource( 4 )
 expand = true
 
 [node name="RestartButton" type="Button" parent="."]
-margin_left = 1058.0
-margin_top = 696.0
-margin_right = 1258.0
-margin_bottom = 746.0
+margin_left = 1070.0
+margin_top = 695.0
+margin_right = 1270.0
+margin_bottom = 745.0
 rect_min_size = Vector2( 200, 40 )
 theme = ExtResource( 1 )
 text = "Restart"
@@ -124,5 +130,17 @@ margin_left = 61.0
 margin_top = 670.0
 margin_right = 261.0
 margin_bottom = 770.0
+
+[node name="Label" type="RichTextLabel" parent="."]
+margin_left = 352.0
+margin_top = 18.0
+margin_right = 1252.0
+margin_bottom = 90.0
+theme = ExtResource( 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center][img=50%]res://texture/mana.png[/img] Dice Evolution [img=50%]res://texture/mana.png[/img][/center]"
+text = " Dice Evolution "
+scroll_active = false
 
 [connection signal="button_down" from="BackButton" to="." method="OnBackButtonPressed"]
