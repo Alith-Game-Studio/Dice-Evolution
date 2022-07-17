@@ -56,6 +56,11 @@ public class Gameplay : Node2D {
         MyLogPane = GetNode<LogPane> ("LogPane");
         UpdateFromGameState();
     }
+    public void ColorDice(int diceI) {
+        DiceLayouts[diceI].Modulate = (
+            GameState.Dices[diceI].IsRevealed ? Colors.White : Colors.Black
+        );
+    }
     public void UpdateFromGameState() {
         RenderInventory(0);
         RollButtonText.BbcodeText = Symbols.CenterBB("Roll " + Symbols.ImgBB(GameState.Dices[GameState.DiceIdToRoll].Name));
@@ -75,9 +80,7 @@ public class Gameplay : Node2D {
                         possibleProducts[prod.Key] = 1;
                 }
             }
-            DiceLayouts[diceId].Modulate = (
-                dice.IsRevealed ? Colors.White : Colors.Black
-            );
+            ColorDice(diceId);
         }
         for (int diceId = 0; diceId < GameState.Dices.Length; ++diceId) {
             Dice dice = GameState.Dices[diceId];
@@ -185,10 +188,13 @@ public class Gameplay : Node2D {
                 ) + BlinkOffset) % 6 + 6) % 6;
                 if (DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate == Colors.White)
                     TickPlayer.Play();
-                for (int i = 0; i < 6; i++) {
-                    DiceButtons[BlinkingDiceI][i].Modulate = Colors.White;
+                for (int j = 0; j < GameState.Dices.Length; j ++) {
+                    for (int i = 0; i < 6; i ++) {
+                        DiceButtons[j][i].Modulate = Colors.White;
+                    }
+                    ColorDice(j);
                 }
-                DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = BLINK_MODULATE;
+                HighlightFacet(BlinkingDiceI, BlinkingFaceI);
                 if (BlinkAge >= BlinkDuration) {
                     BlinkStage = 1;
                     BlinkAge = 0;
@@ -197,13 +203,29 @@ public class Gameplay : Node2D {
             } else if (BlinkStage == 1) {
                 if (BlinkAge < BLINK_SELF_DURATION) {
                     if (BlinkAge % BLINK_SELF_INTERVAL < BLINK_SELF_INTERVAL * .5) {
-                        DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = BLINK_MODULATE;
+                        HighlightFacet(BlinkingDiceI, BlinkingFaceI);
                     } else {
-                        DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = Colors.White;
+                        HighlightFacet(BlinkingDiceI, BlinkingFaceI, true);
                     }
                 } else {                    
                     IsFacetBlinking = false;
                     DiceButtons[BlinkingDiceI][BlinkingFaceI].Modulate = BLINK_MODULATE;
+                }
+            }
+        }
+    }
+    public void HighlightFacet(int dice_i, int facet_i, bool doReset = false) {
+        DiceButtons[dice_i][facet_i].Modulate = doReset ? Colors.White : BLINK_MODULATE;
+        DiceFacet facet = GameState.Dices[dice_i].Facets[facet_i];
+        if (facet is DiceFacetCall facetCall) {
+            for (int i = 0; i < GameState.Dices.Length; ++i) {
+                if (GameState.Dices[i].Name == facetCall.Dice) {
+                    if (doReset) {
+                        ColorDice(i);
+                    } else {
+                        DiceLayouts[i].Modulate = new Color(255, 50, 0);
+                    }
+                    break;
                 }
             }
         }
