@@ -65,14 +65,16 @@ size_flags_vertical = 3
 theme = ExtResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "The game cannot be made without the following resources:
+bbcode_text = "The game cannot be made without the following people and resources:
 1. Godot Engine
 2. [url=https://fonts.google.com/specimen/Just+Another+Hand#standard-styles]Just Another Hand Font[/url], used under Apache 2.0 license
-3. [url=https://freesound.org/people/deleted_user_7146007/sounds/383435/]Click sound 1[/url], [url=https://freesound.org/people/Ranner/sounds/487588/]click sound 2[/url] from FreeSound "
-text = "The game cannot be made without the following resources:
+3. [url=https://freesound.org/people/deleted_user_7146007/sounds/383435/]Click sound 1[/url], [url=https://freesound.org/people/Ranner/sounds/487588/]click sound 2[/url] from FreeSound 
+4. Our friend Jingwei for getting us McDonald's during the game jam  "
+text = "The game cannot be made without the following people and resources:
 1. Godot Engine
 2. Just Another Hand Font, used under Apache 2.0 license
-3. Click sound 1, click sound 2 from FreeSound "
+3. Click sound 1, click sound 2 from FreeSound 
+4. Our friend Jingwei for getting us McDonald's during the game jam  "
 scroll_active = false
 
 [node name="BackButton" type="TextureButton" parent="."]
