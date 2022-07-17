@@ -12,15 +12,16 @@ def main():
         if filename.endswith('.png') and GRAY not in filename:
             inputs.append(filename)
     for filename in inputs:
-        img = Image.open(filename).convert('RGB')
+        img = Image.open(filename).convert('RGBA')
         pixels = img.load()
         for x in range(img.width):
             for y in range(img.height):
-                r, g, b = pixels[x, y]
+                r, g, b, a = pixels[x, y]
                 pixels[x, y] = (
                     round(r * .5), 
                     round(g * .5), 
                     round(b * .5), 
+					a
                 )
         img.save(filename[:-4] + '_gray.png')
 
