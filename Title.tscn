@@ -41,7 +41,7 @@ theme = ExtResource( 2 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center][img=70%]res://texture/mana.png[/img] Dice Evolution [img=70%]res://texture/mana.png[/img][/center]"
-text = " Dice Evolution "
+text = "[center][img=70%]res://texture/mana.png[/img] Dice Evolution [img=70%]res://texture/mana.png[/img][/center]"
 scroll_active = false
 
 [node name="Label2" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
@@ -53,7 +53,7 @@ theme = ExtResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[right]A game by Daniel Chin & Alith[/right]"
-text = "A game by Daniel Chin & Alith"
+text = "[right]A game by Daniel Chin & Alith[/right]"
 scroll_active = false
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
