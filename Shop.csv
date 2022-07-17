@@ -33,7 +33,7 @@ fight	bomb$4|chest	electric	gem
 root	bomb|mushroom			work	0|3
 root	bomb|elixir			play	1|4
 root	bomb|skeleton			fight	2|5
-play	gem|mushroom|elixir|electric		mana$7		
+play	gem|mushroom|elixir|electric		mana$13		
 work	gem|bomb	hp	glasses		
 play	glasses$3		hp$4		
 fight	gem|key	glasses$6	glasses$6|dots		
