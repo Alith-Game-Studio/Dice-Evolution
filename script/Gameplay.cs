@@ -432,6 +432,7 @@ public class Gameplay : Node2D {
             RollButton.Visible = false;
             RestartButton.Show();
         }
+        UpdateFromGameState();
     }
 
     public void OnRestartButtonPressed() {
