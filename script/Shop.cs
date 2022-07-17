@@ -17,25 +17,25 @@ public class Shop {
             new DiceFacetCall(
                 new string[] { }, 
                 "fight", 
-                new string[] {"water"}, 
+                new string[] {"water$2"}, 
                 "play"
             ),
             new DiceFacetConvert(
-                new string[] {"mana", "water"}, 
-                new string[] {"fire$2"}, 
-                new string[] {"air"}, 
+                new string[] {"mana$2", "water"}, 
+                new string[] {"fire$3"}, 
+                new string[] {"air$2"}, 
                 "work"
             ),
             new DiceFacetConvert(
                 new string[] {"fire", "water", "air"}, 
                 new string[] {"elixir"}, 
-                new string[] {"air$2"}, 
+                new string[] {"air$2", "water"}, 
                 "fight"
             ),
             new DiceFacetConvert(
                 new string[] {"elixir"}, 
                 new string[] {"elixir$3"}, 
-                new string[] {"air"}, 
+                new string[] {"air$3"}, 
                 "fight"
             ),
             new DiceFacetConvert(
@@ -53,7 +53,7 @@ public class Shop {
             new DiceFacetCall(
                 new string[] { }, 
                 "work", 
-                new string[] {"earth"}, 
+                new string[] {"earth$2"}, 
                 "fight"
             ),
             new DiceFacetConvert(
@@ -83,12 +83,12 @@ public class Shop {
             new DiceFacetConvert(
                 new string[] {"mushroom", "elixir"}, 
                 new string[] {"skeleton"}, 
-                new string[] {"mana"}, 
+                new string[] {"mana$2"}, 
                 "work"
             ),
             new DiceFacetConvert(
-                new string[] { }, 
-                new string[] {"mana$6"}, 
+                new string[] {"elixir"}, 
+                new string[] {"mana$4"}, 
                 new string[] {"skeleton"}, 
                 "play"
             ),
@@ -103,6 +103,12 @@ public class Shop {
                 new string[] {"mushroom"}, 
                 new string[] {"mushroom"}, 
                 "work"
+            ),
+            new DiceFacetConvert(
+                new string[] { }, 
+                new string[] {"mana$2"}, 
+                new string[] {"fire$3"}, 
+                "play"
             ),
         };
     }
