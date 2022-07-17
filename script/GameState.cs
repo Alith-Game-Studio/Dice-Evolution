@@ -28,7 +28,7 @@ public class GameState : Node
         RoundNumber = 0;
         DiceIdToRoll = 0;
         File f = new File();
-        f.Open("Shop.csv", File.ModeFlags.Read);
+        f.Open("res://Shop.csv", File.ModeFlags.Read);
         string[] lines = f.GetAsText().Split('\n');
         List<DiceFacet> itemList = new List<DiceFacet>();
         foreach (string line in lines) {
