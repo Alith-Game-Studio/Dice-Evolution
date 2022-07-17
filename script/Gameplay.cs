@@ -368,4 +368,13 @@ public class Gameplay : Node2D {
         GetNode<AudioStreamPlayer>("/root/ClickPlayer").Play();
         GetTree().ChangeScene("res://Title.tscn");
     }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        base._UnhandledInput(@event);
+        if (@event is InputEventKey eventKey)
+            if (eventKey.Pressed && eventKey.Scancode == (int)KeyList.Space) {
+                OnRollPressed();
+            }
+    }
 }
