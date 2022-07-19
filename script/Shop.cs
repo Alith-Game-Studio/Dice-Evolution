@@ -7,6 +7,7 @@ public class Shop {
         File f = new File();
         f.Open("res://Shop.csv", File.ModeFlags.Read);
         string[] lines = f.GetAsText().Split('\n');
+        f.Close();
         List<DiceFacet> itemList = new List<DiceFacet>();
         foreach (string line in lines) {
             string content = line.Replace('\t', '?').StripEdges();

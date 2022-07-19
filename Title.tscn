@@ -53,9 +53,9 @@ theme = ExtResource( 2 )
 custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[right]A game by Daniel Chin & Alith
-Made during GMTK Gamejam 2022 (v1.1)[/right]"
+Post Jam Version v1.2[/right]"
 text = "A game by Daniel Chin & Alith
-Made during GMTK Gamejam 2022 (v1.1)"
+Post Jam Version v1.2"
 scroll_active = false
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]

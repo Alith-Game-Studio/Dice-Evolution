@@ -83,6 +83,7 @@ public class Gameplay : Node2D {
             Dice dice = GameState.Dices[diceId];
             foreach (Node node in DiceUpgrades[diceId].GetChildren()) {
                 DiceUpgrades[diceId].RemoveChild(node);
+                node.QueueFree();
             }
             int itemId = 0;
             foreach (DiceFacet facet in Shop.Items) {
